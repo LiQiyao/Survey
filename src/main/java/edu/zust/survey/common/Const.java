@@ -12,5 +12,6 @@ public class Const {
 
     public static final String STUDENT_COUNT = "studentCount";
     public static final String ANSWERED_COUNT = "answerCount";
-    public static final String RESULT_MAP = "result_map";
+    public static final String RESULT_MAP = "resultMap";
+    public static final String SUGGESTION_TABLE = "suggestionTable";
 }

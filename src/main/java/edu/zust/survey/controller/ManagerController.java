@@ -6,6 +6,7 @@ import edu.zust.survey.service.IManagerService;
 import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.service.IStatisticService;
 import edu.zust.survey.vo.Design;
+import edu.zust.survey.vo.Questionnaire;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,11 @@ public class ManagerController {
             Integer majorId = manager.getMajorId();
             model.addAttribute(Const.STUDENT_COUNT, statisticService.getCountSum(majorId));
             model.addAttribute(Const.ANSWERED_COUNT, statisticService.getAnsweredCountSum(majorId));
-            model.addAttribute(Const.RESULT_MAP, statisticService.getResultMap(majorId));
+            model.addAttribute(Const.RESULT_MAP, statisticService.getResultMap(majorId));//通过answerId获取回答的人数
+            model.addAttribute(Const.SUGGESTION_TABLE, statisticService.getSuggestionList(majorId));
+            Questionnaire questionnaire = questionService.getAllQuestions(majorId);
+            model.addAttribute(Const.QUESTIONNAIRE, questionnaire);
         }
-        return "index";
+        return "statistics";
     }
 }

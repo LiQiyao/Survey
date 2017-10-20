@@ -21,11 +21,12 @@ public class StuAnsDAO {
         return true;
     }
 
-    public Integer queryCountByAnswerId(Integer answerId){
+    public int queryCountByAnswerId(Integer answerId){
         Session session = sessionFactory.openSession();
-        Integer cnt = (Integer) session.createQuery("select count(*) from stu_ans where answerId=?").setParameter(0, answerId).uniqueResult();
+        long cnt = (Long) session.createQuery("select count(*) from stu_ans where answerId=?").setParameter(0, answerId).uniqueResult();
+        int cnt2 = (int)cnt;
         session.close();
-        return cnt;
+        return cnt2;
     }
 
 }

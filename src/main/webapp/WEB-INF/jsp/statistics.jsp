@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    int part1count=0;
+    int part2count=0;
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,63 +21,50 @@
 <body>
     <div class="main">
         <blockquote class="layui-elem-quote layui-quote-nm">
-            <p>专业名称：软件工程</p>
-            <p>该专业参与调查的总人数：9999人</p>
-            <p>已答题人数：6666人</p>
-            <p>未答题人数：3333人</p>
-            <p>已答题人数所占比例：66.6%</p>
+            <p>专业名称：${majorTable[currentUser.majorId]}</p>
+            <p>该专业参与调查的总人数：${studentCount}人</p>
+            <p>已答题人数：${answerCount}人</p>
+            <p>未答题人数：${studentCount - answerCount}人</p>
+            <p>已答题人数所占比例：${answerCount*100.0/studentCount}%</p>
         </blockquote>
         <div>
             <div class="layui-form">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>一、毕业要求达成度调查</legend>
                 </fieldset>
-                <div class="question-block">
-                    <div class="question-title">1. 您对我校的教学质量满意吗？</div>
-                    <div class="choice">
-                        <div class="choice-item">
-                            <span>非常满意</span>
-                            <span class="statis">选择人数<span class="num-choose">570</span> | 占比<span class="percent">60%</span></span>
-                        </div>
-                        <div class="choice-item">
-                            <span>较满意</span>
-                            <span class="statis">选择人数<span class="num-choose">570</span> | 占比<span class="percent">60%</span></span>
-                        </div>
-                        <div class="choice-item">
-                            <span>非常满意您对我校的教学质量满意吗,司改国是会议后,检察官协会也就各项检察改革议题动了起来,由检协会制作了。司改国是会议后,检察官协会也就各项检察改革议题动了起来,由检协会制作了。</span>
-                            <span class="statis">选择人数<span class="num-choose">570</span> | 占比<span class="percent">60%</span></span>
-                        </div>
-                        <div class="choice-item">
-                            <span>非常满意</span>
-                            <span class="statis">选择人数<span class="num-choose">570</span> | 占比<span class="percent">60%</span></span>
+                <c:forEach var="question" items="${questionnaire.part1}">
+                    <div class="question-block">
+                        <div class="question-title"><%=++part1count%>. ${question.questionContent}</div>
+                        <div class="choice">
+                            <c:forEach var="answer" items="${question.answers}">
+                                <div class="choice-item">
+                                    <span>${answer.answerContent}</span>
+                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent">${resultMap.get(answer.id)*100.0/answerCount}%</span></span>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
-                </div>
-                <div class="question-block">
-                    <div class="question-title">2. 您对我校的教学质量满意吗,司改国是会议后,检察官协会也就各项检察改革议题动了起来,由检协会制作了。司改国是会议后,检察官协会也就各项检察改革议题动了起来,由检协会制作了？</div>
-                    <div class="choice">
-                        <div><input type="radio" name="fu" value="非常满意" title="非常满意"></div>
-                        <div><input type="radio" name="fu" value="较满意" title="较满意"></div>
-                        <div><input type="radio" name="fu" value="满意" title="满意"></div>
-                        <div><input type="radio" name="fu" value="不满意" title="不满意"></div>
-                    </div>
-                </div>
+                </c:forEach>
+
             </div>
 
             <div class="layui-form">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>二、毕业生跟踪调查</legend>
                 </fieldset>
-                <div class="question-block">
-                    <div class="question-title">1. 自定义的题目？</div>
-                    <div class="choice">
-                        <div><input type="radio" name="dog" value="非常满意" title="非常满意"></div>
-                        <div><input type="radio" name="dog" value="较满意" title="较满意"></div>
-                        <div><input type="radio" name="dog" value="满意" title="满意"></div>
-                        <div><input type="radio" name="dog" value="不满意" title="不满意"></div>
-                        <div><input type="radio" name="dog" value="自定义" title="自定义"></div>
+                <c:forEach var="question" items="${questionnaire.part2}">
+                    <div class="question-block">
+                        <div class="question-title"><%=++part2count%>. ${question.questionContent}</div>
+                        <div class="choice">
+                            <c:forEach var="answer" items="${question.answers}">
+                                <div class="choice-item">
+                                    <span>${answer.answerContent}</span>
+                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent">${resultMap.get(answer.id)*100.0/answerCount}%</span></span>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
 
             </div>
 
@@ -90,22 +82,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>贤心心</td>
-                            <td>1156788990</td>
-                            <td>人生就像是一场修行a</td>
-                        </tr>
-                        <tr>
-                            <td>贤心2</td>
-                            <td>88</td>
-                            <td>人生就像是一场修行b</td>
-                        </tr>
-                        <tr>
-                            <td>贤心3</td>
-                            <td>33</td>
-                            <td>人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c人生就像是一场修行c</td>
-                        </tr>
-
+                    <c:forEach var="suggestion" items="${suggestionTable}">
+                        <c:if test="${suggestion.suggestionContent!=null && suggestion.suggestionContent!=''}" >
+                            <tr>
+                                <td>${suggestion.student.name}</td>
+                                <td>${suggestion.student.username}</td>
+                                <td>${suggestion.suggestionContent}</td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -113,7 +98,7 @@
         </div>
     </div>
 </body>
-<script src="../../../../../../../../bfweb/survey/plugins/layui/layui.js"></script>
+<script src="/plugins/layui/layui.js"></script>
 <script>
     layui.use(['form', 'table'], function () {
         var form = layui.form;

@@ -39,7 +39,7 @@ public class StuAnsServiceImpl implements IStuAnsService{
             if ("suggestionContent".equals(key)){
                 suggestionService.addSuggestion(studentId, value);
             } else {
-                stuAnsDAO.insertStuAns(new StuAns(studentId, Integer.parseInt(key), Integer.parseInt(value)));
+               stuAnsDAO.insertStuAns(new StuAns(studentId, Integer.parseInt(key), Integer.parseInt(value)));
             }
         }
         studentDAO.updateAnsweredStatus(studentId);

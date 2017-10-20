@@ -25,11 +25,11 @@
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
             <!--TODO-->
             <li class="layui-nav-item layui-this"><a href="backendpages/design.html" target="frame">设计调查表</a></li>
-            <li class="layui-nav-item"><a href="backendpages/statistics.html" target="frame">统计数据</a></li>
+            <li class="layui-nav-item"><a href="/admin/getStatic" target="frame">统计数据</a></li>
         </ul>
     </div>
     <div class="main">
-        <iframe name="frame" src="/backendpages/design.html" frameborder="0"></iframe>
+        <iframe name="frame" src="" frameborder="0"></iframe>
     </div>
 </body>
 

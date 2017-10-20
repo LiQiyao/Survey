@@ -25,21 +25,34 @@ public class StudentDAO {
     }
 
     public boolean updateAnsweredStatus(Integer studentId){
-        sessionFactory.getCurrentSession().createQuery("update student st set st.answered = 1 where st.id=?").setParameter(0, studentId).executeUpdate();
+        /*Session session = sessionFactory.openSession();
+        Student student = session.get(Student.class,studentId);
+        student.setAnswered(1);
+        session.saveOrUpdate(student);*/
+        sessionFactory.getCurrentSession().createNativeQuery("update student set answered = 1 where id=" + studentId).executeUpdate();
         return true;
     }
 
-    public Integer queryCountSum(Integer majorId){
+    public int queryCountSum(Integer majorId){
         Session session = sessionFactory.openSession();
-        Integer cnt = (Integer) session.createQuery("select count(*) from student where majorId=?").setParameter(0, majorId).uniqueResult();
+        long cnt = (Long) session.createQuery("select count(*) from student where majorId=?").setParameter(0, majorId).uniqueResult();
+        int cnt2=(int)cnt;
         session.close();
-        return cnt;
+        return cnt2;
     }
 
-    public Integer queryAnsweredCountSum(Integer majorId){
+    public int queryAnsweredCountSum(Integer majorId){
         Session session = sessionFactory.openSession();
-        Integer cnt = (Integer) session.createQuery("select count(*) from student where majorId=? and answered = 1").setParameter(0, majorId).uniqueResult();
+        long cnt = (Long) session.createQuery("select count(*) from student where majorId=? and answered = 1").setParameter(0, majorId).uniqueResult();
+        int cnt2=(int)cnt;
         session.close();
-        return cnt;
+        return cnt2;
+    }
+
+    public Student getStudentById(Integer studentId){
+        Session session = sessionFactory.openSession();
+        Student student = session.get(Student.class,studentId);
+        session.close();
+        return student;
     }
 }

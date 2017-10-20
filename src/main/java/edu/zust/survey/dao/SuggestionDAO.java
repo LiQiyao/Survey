@@ -22,7 +22,10 @@ public class SuggestionDAO {
 
     public boolean insertSuggestion(Suggestion suggestion){
         System.out.println(suggestion);
-        sessionFactory.getCurrentSession().save(suggestion);
+
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(suggestion.getStudent());
+        session.save(suggestion);
         return true;
     }
 

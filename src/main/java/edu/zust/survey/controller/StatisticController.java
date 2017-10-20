@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * @Author Rin
+ * @Author Rin 这个类可以删掉了，功能合并在ManagerController中
  * @Date 2017/10/20
  */
 @Controller
