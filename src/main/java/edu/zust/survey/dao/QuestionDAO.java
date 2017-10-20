@@ -33,6 +33,12 @@ public class QuestionDAO {
         return questions;
     }
 
+    public List<Question> selectAllQuestionsByMajorId(Integer majorId){
+        List<Question> questions = sessionFactory.openSession().
+                createQuery("from question where majorId=?", Question.class).setParameter(0, majorId).list();
+        System.out.println(questions);
+        return questions;
+    }
 
     public boolean insertQuestion(Question question){
         sessionFactory.getCurrentSession().save(question);
