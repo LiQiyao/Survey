@@ -82,18 +82,7 @@
     });
     var app = new Vue({
         el: "#main",
-        data: {
-            part1: ["问题1", "问题2"],
-            part2: [{
-                    questionContent: "你为什么要自定义问题啊",
-                    answerContent: ["知道", "不知道"]
-                },
-                {
-                    questionContent: "你为什么要自定义问题2",
-                    answerContent: ["知道", "不知道"]
-                },
-            ]
-        },
+        data: ${design},
         methods:{
             remove:function(arr,index){
                 arr.splice(index,1);

@@ -1,5 +1,6 @@
 package edu.zust.survey.controller;
 
+import com.google.gson.Gson;
 import edu.zust.survey.common.Const;
 import edu.zust.survey.entity.Manager;
 import edu.zust.survey.service.IManagerService;
@@ -51,9 +52,11 @@ public class ManagerController {
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             Design design = questionService.assembelDesignModel(manager.getMajorId());
-            model.addAttribute(Const.DESIGN, design);
+            Gson gson = new Gson();
+            String json = gson.toJson(design);
+            model.addAttribute(Const.DESIGN, json);
         }
-        return "index";
+        return "design";
     }
 
     @RequestMapping(value = "getStatic", method = RequestMethod.GET)

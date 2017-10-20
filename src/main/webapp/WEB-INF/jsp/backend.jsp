@@ -24,7 +24,7 @@
     <div class="left-nav">
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
             <!--TODO-->
-            <li class="layui-nav-item layui-this"><a href="backendpages/design.html" target="frame">设计调查表</a></li>
+            <li class="layui-nav-item layui-this"><a href="/admin/getDesignModel" target="frame">设计调查表</a></li>
             <li class="layui-nav-item"><a href="/admin/getStatic" target="frame">统计数据</a></li>
         </ul>
     </div>
