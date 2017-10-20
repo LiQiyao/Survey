@@ -26,25 +26,26 @@ public class LoginController {
     @Autowired
     private IStudentService studentService;
 
-    @RequestMapping(value = "student", method = RequestMethod.GET)
+    @RequestMapping(value = "student", method = RequestMethod.POST)
     public String studentLogin(HttpServletResponse resp, HttpSession session, String username, String password){
         Student student = studentService.login(username, password);
         if (student != null){
             if (student.getAnswered() == 1){
+                //TODO 已经答题
                 return "";
             }
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
         }
-        return "";
+        return "/student/question/getAllQuestions";
     }
 
-    @RequestMapping("manager")
+    @RequestMapping(value = "manager", method = RequestMethod.POST)
     public String managerLogin(HttpSession session, String username, String password){
         Manager manager = managerService.login(username, password);
         if (manager != null){
             session.setAttribute(Const.CURRENT_USER, manager);
         }
-        return "";
+        return "backend";
     }
 }

@@ -1,0 +1,31 @@
+.main{
+    margin:10px 10px 0 10px;
+}
+.question-title{
+    font-size: 18px;
+    line-height: 1.5em;
+}
+.question-block{
+    margin: 20px 0;
+}
+.choice{
+    margin-left: 16px;
+}
+.choice-item{
+    background-color: #eeeeee;
+    margin: 5px 0;
+    padding:5px;
+    font-size: 16px;
+    line-height: 1.5em;
+}
+.num-choose{
+    color:blue;
+}
+.percent{
+    color: #ce000d;
+}
+.statis{
+    display: inline-block;
+    margin-left: 2em;
+    color: #393D49;
+}

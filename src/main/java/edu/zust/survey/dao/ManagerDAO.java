@@ -22,7 +22,7 @@ public class ManagerDAO {
     }
 
     public Manager selectByUsernameAndPassword(String username, String password){
-        Manager manager = sessionFactory.openSession().createQuery("from student where username=? and password=?", Manager.class)
+        Manager manager = sessionFactory.openSession().createQuery("from manager where username=? and password=?", Manager.class)
                 .setParameter(0, username).setParameter(1, password).getSingleResult();
         return manager;
     }

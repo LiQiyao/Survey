@@ -1,0 +1,19 @@
+.main{
+    width: 820px;
+    margin: 0 auto;
+}
+.title{
+    font-size: 32px;
+    text-align: center;
+    margin: 10px 0;
+}
+.question-title{
+    font-size: 18px;
+    line-height: 1.5em;
+}
+.question-block{
+    margin: 20px 0;
+}
+.choice{
+    margin-left: 16px;
+}

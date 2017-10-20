@@ -1,0 +1,101 @@
+.container-fluid
+{
+	/*background: -webkit-linear-gradient(to top right, #cde0e9, #FFFFFF, #FFFFFF, #cde0e9);*/
+	/*background: linear-gradient(to top right, #cde0e9, #ffffff, #FFFFFF, #cde0e9);*/
+	min-height: 389px;
+	overflow: auto;
+	background-attachment:fixed;
+}
+
+.login-div
+{
+	position: absolute;
+	top:50%;
+	left:50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.login-title
+{
+	text-align: center;
+	padding-bottom: 20px;
+	font-size: 1.7em;
+}
+
+.login-content
+{
+	/*height: 310px;*/
+	-webkit-box-shadow: 5px 5px 5px 0px #dddddd;
+	-moz-box-shadow: 5px 5px 5px 0px #dddddd;
+	box-shadow: 5px 5px 5px 0px #dddddd;
+}
+
+.login-tab-title
+{
+	position: relative;
+	left:0;
+	height: 60px;
+	white-space: nowrap;
+	font-size: 14px;
+	border-bottom: 1px solid #e2e2e2;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-ms-transition: all .2s;
+	-o-transition: all .2s;
+	transition: all .2s;
+}
+
+.login-tab-title li
+{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.5em;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-ms-transition: all .2s;
+	-o-transition: all .2s;
+	transition: all .2s;
+	position: relative;
+	line-height: 60px;
+	min-width: 85px;
+	padding: 0 40px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.login-tab-title .login-this
+{
+	color: #40BAFF;
+	border-bottom: 1px solid #40BAFF;
+}
+
+.login-tab-content
+{
+	padding: 10px;
+	padding-top: 30px;
+}
+
+.login-tab-item
+{
+	display: none;
+}
+
+.login-show
+{
+	display: block!important;
+}
+
+.login-form-item
+{
+	padding-top: 20px;
+	text-align: center;
+}
+
+.login-form-item > button
+{
+	width: 80%;
+}

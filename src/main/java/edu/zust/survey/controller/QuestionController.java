@@ -7,6 +7,7 @@ import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.vo.Questionnaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,11 +24,14 @@ public class QuestionController {
     private IQuestionService questionService;
 
     @RequestMapping(value = "student/question/getAllQuestions", method = RequestMethod.GET)
-    public String getAllQuestions(HttpSession session){
-        //Student student = (Student) session.getAttribute(Const.CURRENT_USER);
-        //Integer majorId = student.getMajorId();
-        System.out.println(questionService.getAllQuestions(1));
-        return null;
+    public String getAllQuestions(HttpSession session, Model model){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        Integer majorId = student.getMajorId();
+        System.out.println(questionService.getAllQuestions(majorId));
+        model.addAttribute(Const.QUESTIONNAIRE, questionService.getAllQuestions(majorId));
+        String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
+        model.addAttribute(Const.MAJOR_TABLE,majorTable);
+        return "survey";
     }
 
     @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.GET)

@@ -1,0 +1,24 @@
+.main{
+    margin:10px;
+}
+.part1-ask{
+    margin:2px 0;
+}
+.i-b{
+    margin-left: 10px;
+}
+
+.part2-ask{
+    padding:5px;
+    margin: 5px 0;
+    background-color: #dddddd;
+}
+.part2-ask-items{
+    margin-left: 40px;
+}
+.long-input{
+    width:70%;
+}
+.short-input{
+    width: 40%;
+}
