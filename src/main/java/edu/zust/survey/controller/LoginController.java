@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -26,9 +27,12 @@ public class LoginController {
     private IStudentService studentService;
 
     @RequestMapping(value = "student", method = RequestMethod.GET)
-    public String studentLogin(HttpSession session, String username, String password){
+    public String studentLogin(HttpServletResponse resp, HttpSession session, String username, String password){
         Student student = studentService.login(username, password);
         if (student != null){
+            if (student.getAnswered() == 1){
+                return "";
+            }
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
         }

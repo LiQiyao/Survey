@@ -1,6 +1,7 @@
 package edu.zust.survey.service.impl;
 
 import edu.zust.survey.dao.StuAnsDAO;
+import edu.zust.survey.dao.StudentDAO;
 import edu.zust.survey.dao.SuggestionDAO;
 import edu.zust.survey.entity.StuAns;
 import edu.zust.survey.entity.Suggestion;
@@ -24,6 +25,9 @@ public class StuAnsServiceImpl implements IStuAnsService{
     @Autowired
     private ISuggestionService suggestionService;
 
+    @Autowired
+    private StudentDAO studentDAO;
+
     @Transactional
     public boolean answerQuestions(Integer studentId, Map<String, String[]> map) {
         String[] temp;
@@ -38,6 +42,7 @@ public class StuAnsServiceImpl implements IStuAnsService{
                 stuAnsDAO.insertStuAns(new StuAns(studentId, Integer.parseInt(key), Integer.parseInt(value)));
             }
         }
+        studentDAO.updateAnsweredStatus(studentId);
         return true;
     }
 }
