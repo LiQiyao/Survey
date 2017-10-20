@@ -3,6 +3,7 @@ package edu.zust.survey.controller;
 import edu.zust.survey.common.Const;
 import edu.zust.survey.dao.StudentDAO;
 import edu.zust.survey.entity.Student;
+import edu.zust.survey.service.IStuAnsService;
 import edu.zust.survey.service.IStudentService;
 import edu.zust.survey.service.ISuggestionService;
 import org.hibernate.SessionFactory;
@@ -22,28 +23,14 @@ import java.util.Map;
 public class StuAnsController {
 
     @Autowired
-    private ISuggestionService suggestionService;
-
-    @Autowired
-    private IStudentService studentService;
+    private IStuAnsService stuAnsService;
 
     @RequestMapping(value = "/student/stuAns/submitAnswer", method = RequestMethod.GET)
     public String submitAnswer(HttpSession session, HttpServletRequest req){
+        Student student = (Student)session.getAttribute(Const.CURRENT_USER);
+        int studentId = 2;
         Map<String, String[]> map = req.getParameterMap();
-        String[] temp;
-        String value;
-        for (String key : map.keySet()){
-            temp = map.get(key);
-            value = temp[0];
-            System.out.println(key + " " + value +"!!!");
-            if ("suggestionContent".equals(key)){
-                suggestionService.addSuggestion(1, value);
-            } else {
-
-            }
-        }
-
+        stuAnsService.answerQuestions(studentId, map);
         return "";
     }
-
 }

@@ -47,4 +47,6 @@ public class Suggestion {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+
 }

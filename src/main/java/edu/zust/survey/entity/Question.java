@@ -11,6 +11,7 @@ import java.util.List;
 @Entity(name = "question")
 public class Question {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "question_content")
@@ -21,7 +22,7 @@ public class Question {
 
     private Integer type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, orphanRemoval = true)
     //@JoinColumn(name = "questionId")
     private List<Answer> answers = Lists.newArrayList();
 
@@ -75,4 +76,5 @@ public class Question {
                 ", answers=" + answers +
                 '}';
     }
+
 }
