@@ -64,6 +64,14 @@ public class Answer {
     public Answer() {
     }
 
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     public Answer(String answerContent, Question question) {
         this.answerContent = answerContent;
         this.question = question;
