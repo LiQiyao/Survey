@@ -33,7 +33,14 @@ public class QuestionController {
     @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.GET)
     public String addQuestion(HttpSession session, String jsonString){
         jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
-        questionService.addQuestions(jsonString);
+        questionService.addQuestions(1, jsonString);
+        return "";
+    }
+
+    @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.GET)
+    public String modifyQuestion(HttpSession session, String jsonString){
+        jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
+        questionService.modifyQuestions(1, jsonString);
         return "";
     }
 }

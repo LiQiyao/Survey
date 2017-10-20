@@ -33,14 +33,16 @@ public class QuestionDAO {
         return questions;
     }
 
-    @Transactional
-    public boolean insertQuestion(Question question, List<Answer> answers){
+
+    public boolean insertQuestion(Question question){
         sessionFactory.getCurrentSession().save(question);
         return true;
     }
 
-    @Transactional
-    public boolean deleteQuestion(){
+
+    public boolean deleteQuestion(Integer majorId){
+        System.out.println("~~~~" + majorId);
+        sessionFactory.getCurrentSession().createQuery("delete from question q where q.majorId=?").setParameter(0, majorId).executeUpdate();
         return true;
     }
 }

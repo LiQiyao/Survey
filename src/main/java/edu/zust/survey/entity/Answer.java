@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Answer {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
 /*    @Column(name = "question_id")
@@ -54,5 +55,17 @@ public class Answer {
 
     public void setAnswerNo(String answerNo) {
         this.answerNo = answerNo;
+    }
+
+    public Answer(String answerContent) {
+        this.answerContent = answerContent;
+    }
+
+    public Answer() {
+    }
+
+    public Answer(String answerContent, Question question) {
+        this.answerContent = answerContent;
+        this.question = question;
     }
 }

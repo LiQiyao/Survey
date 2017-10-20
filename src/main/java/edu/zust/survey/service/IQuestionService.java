@@ -9,5 +9,7 @@ public interface IQuestionService {
 
     Questionnaire getAllQuestions(Integer majorId);
 
-    boolean addQuestions(String jsonString);
+    boolean addQuestions(Integer majorId, String jsonString);
+
+    boolean modifyQuestions(Integer majorId, String jsonString);
 }
