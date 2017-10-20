@@ -33,4 +33,12 @@ public class CustomQuestion {
     public void setAnswerContent(List<String> answerContent) {
         this.answerContent = answerContent;
     }
+
+    public CustomQuestion(String questionContent, List<String> answerContent) {
+        this.questionContent = questionContent;
+        this.answerContent = answerContent;
+    }
+
+    public CustomQuestion() {
+    }
 }

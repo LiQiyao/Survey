@@ -25,7 +25,7 @@ public class StudentDAO {
     }
 
     public boolean updateAnsweredStatus(Integer studentId){
-        sessionFactory.getCurrentSession().createQuery("update student set answered = 1 where studentId=?").setParameter(0, studentId).executeUpdate();
+        sessionFactory.getCurrentSession().createQuery("update student st set st.answered = 1 where st.id=?").setParameter(0, studentId).executeUpdate();
         return true;
     }
 

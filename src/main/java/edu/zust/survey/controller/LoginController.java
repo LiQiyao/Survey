@@ -37,7 +37,7 @@ public class LoginController {
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
         }
-        return "/student/question/getAllQuestions";
+        return "redirect:/student/question/getAllQuestions";
     }
 
     @RequestMapping(value = "manager", method = RequestMethod.POST)

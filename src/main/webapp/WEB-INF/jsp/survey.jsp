@@ -23,12 +23,12 @@
             <p>姓名：${currentUser.name}</p>
             <p>学号：${currentUser.username}</p>
             <p>专业：${majorTable[currentUser.majorId]}</p>
-            <p>班级：${currentUser.klasses}</p>
+            <p>班级：${currentUser.klasse}</p>
         </blockquote>
 
         <div class="title">毕业要求达成度及毕业生跟踪调查问卷</div>
 
-        <form action="/xxx.do" method="post">
+        <form action="/student/stuAns/submitAnswer" method="post">
             <div class="layui-form">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>一、毕业要求达成度调查</legend>
@@ -66,7 +66,7 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>三、您的意见及建议</legend>
                 </fieldset>
-                <textarea name="txt" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="suggestionContent" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
             <div style="text-align: center; margin:20px 0 100px;">
                 <button class="layui-btn layui-btn-big layui-btn-danger">提交问卷</button>

@@ -28,7 +28,8 @@ public class QuestionController {
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         Integer majorId = student.getMajorId();
         System.out.println(questionService.getAllQuestions(majorId));
-        model.addAttribute(Const.QUESTIONNAIRE, questionService.getAllQuestions(majorId));
+        Questionnaire questionnaire = questionService.getAllQuestions(majorId);
+        model.addAttribute(Const.QUESTIONNAIRE, questionnaire);
         String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
         model.addAttribute(Const.MAJOR_TABLE,majorTable);
         return "survey";

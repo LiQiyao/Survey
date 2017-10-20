@@ -34,4 +34,12 @@ public class Design {
     public void setPart2(List<CustomQuestion> part2) {
         this.part2 = part2;
     }
+
+    public Design(List<String> part1, List<CustomQuestion> part2) {
+        this.part1 = part1;
+        this.part2 = part2;
+    }
+
+    public Design() {
+    }
 }

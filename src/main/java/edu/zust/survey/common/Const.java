@@ -8,4 +8,6 @@ public class Const {
     public static final int MAJOR_COUNT = 6;
     public static final String QUESTIONNAIRE = "questionnaire";
     public static final String MAJOR_TABLE = "majorTable";
+    public static final String DESIGN = "design";
+
 }
