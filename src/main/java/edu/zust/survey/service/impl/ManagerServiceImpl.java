@@ -22,7 +22,9 @@ public class ManagerServiceImpl implements IManagerService{
     @Override
     public Manager login(String username, String password) {
         Manager manager = managerDAO.selectByUsernameAndPassword(username, password);
-        manager.setPassword(StringUtils.EMPTY);
+        if (manager != null){
+            manager.setPassword(StringUtils.EMPTY);
+        }
         return manager;
     }
 

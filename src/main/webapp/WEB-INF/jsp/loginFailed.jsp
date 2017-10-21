@@ -6,6 +6,6 @@
     <title>失败</title>
 </head>
 <body>
-<h1>登录失败！请重新登录！</h1>
+<h1>登录失败！请重新登录！<a href="/">【返回】</a></h1>
 </body>
 </html>

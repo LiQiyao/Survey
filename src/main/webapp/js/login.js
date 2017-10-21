@@ -21,10 +21,7 @@ layui.use(["form"], function()
     form.verify({
         id: function(value, item)
         {
-            if(!/\d/.test(value))
-            {
-                return "学号必须都是数字";
-            }
+
         }
     })
 });

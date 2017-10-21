@@ -37,8 +37,9 @@ public class LoginController {
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
             addMajorTable(session);
+            return "redirect:/student/question/getAllQuestions";
         }
-        return "redirect:/student/question/getAllQuestions";
+        return "loginFailed";
 
     }
 

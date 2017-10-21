@@ -42,9 +42,9 @@ public class QuestionController {
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             questionService.addQuestions(manager.getMajorId(), jsonString);
-            return "design";
+            return "designSucceed";
         }
-        return "";
+        return "loginFailed";
     }
 
     @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.POST)
@@ -53,8 +53,8 @@ public class QuestionController {
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             questionService.modifyQuestions(manager.getMajorId(), jsonString);
-            return "design";
+            return "designSucceed";
         }
-        return "";
+        return "loginFailed";
     }
 }

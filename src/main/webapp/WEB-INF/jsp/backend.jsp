@@ -18,7 +18,7 @@
         <div class="top-nav-left">毕业要求达成度及毕业生跟踪调查系统 | 后台管理</div>
         <div class="top-nav-right">
             <span>管理员：${currentUser.username}&nbsp;&nbsp;专业：${majorTable[currentUser.majorId]}</span>
-                <button class="layui-btn layui-btn-danger layui-btn-mini" style="margin:0 12px;" onclick="window.location.href('/admin/logout')">退出系统</button>
+                <button class="layui-btn layui-btn-danger layui-btn-mini" style="margin:0 12px;" onclick="window.location.href='/admin/logout'">退出系统</button>
         </div>
     </div>
     <div class="left-nav">

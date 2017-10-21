@@ -38,7 +38,7 @@ public class ManagerController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.setAttribute(Const.CURRENT_USER, null);
-        return "index";
+        return "redirect:/login.html";
     }
 
     @RequestMapping(value = "addManager", method = RequestMethod.GET)
