@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <%
     int part1count=0;
     int part2count=0;
@@ -25,7 +26,7 @@
             <p>该专业参与调查的总人数：${studentCount}人</p>
             <p>已答题人数：${answerCount}人</p>
             <p>未答题人数：${studentCount - answerCount}人</p>
-            <p>已答题人数所占比例：${answerCount*100.0/studentCount}%</p>
+            <p>已答题人数所占比例：<fmt:formatNumber type="number" value="${answerCount*100.0/studentCount}" maxFractionDigits="2"/>%</p>
         </blockquote>
         <div>
             <div class="layui-form">
@@ -39,7 +40,7 @@
                             <c:forEach var="answer" items="${question.answers}">
                                 <div class="choice-item">
                                     <span>${answer.answerContent}</span>
-                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent">${resultMap.get(answer.id)*100.0/answerCount}%</span></span>
+                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent"><fmt:formatNumber type="number" value="${resultMap.get(answer.id)*100.0/answerCount}" maxFractionDigits="2"/>%</span></span>
                                 </div>
                             </c:forEach>
                         </div>
@@ -59,7 +60,7 @@
                             <c:forEach var="answer" items="${question.answers}">
                                 <div class="choice-item">
                                     <span>${answer.answerContent}</span>
-                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent">${resultMap.get(answer.id)*100.0/answerCount}%</span></span>
+                                    <span class="statis">选择人数<span class="num-choose">${resultMap.get(answer.id)}</span> | 占比<span class="percent"><fmt:formatNumber type="number" value="${resultMap.get(answer.id)*100.0/answerCount}" maxFractionDigits="2"/>%</span></span>
                                 </div>
                             </c:forEach>
                         </div>

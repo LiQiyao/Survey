@@ -32,12 +32,14 @@ public class LoginController {
         if (student != null){
             if (student.getAnswered() == 1){
                 //TODO 已经答题
-                return "";
+                return "thanks";
             }
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
+            addMajorTable(session);
         }
         return "redirect:/student/question/getAllQuestions";
+
     }
 
     @RequestMapping(value = "manager", method = RequestMethod.POST)
@@ -45,7 +47,16 @@ public class LoginController {
         Manager manager = managerService.login(username, password);
         if (manager != null){
             session.setAttribute(Const.CURRENT_USER, manager);
+            addMajorTable(session);
+            return "backend";
         }
-        return "backend";
+        return "loginFailed";
+    }
+
+    private void addMajorTable(HttpSession session){
+        if(session.getServletContext().getAttribute(Const.MAJOR_TABLE)==null){
+            String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
+            session.getServletContext().setAttribute(Const.MAJOR_TABLE,majorTable);
+        }
     }
 }

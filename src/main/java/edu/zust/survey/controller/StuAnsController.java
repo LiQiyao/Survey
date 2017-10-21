@@ -31,6 +31,6 @@ public class StuAnsController {
         int studentId = student.getId();
         Map<String, String[]> map = req.getParameterMap();
         stuAnsService.answerQuestions(studentId, map);
-        return "";
+        return "thanks";
     }
 }

@@ -21,7 +21,7 @@ public class Answer {
     @Column(name = "answer_no")
     private String answerNo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Question question;
 
