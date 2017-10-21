@@ -21,7 +21,7 @@ public class ManagerInterceptor implements HandlerInterceptor{
         if (object instanceof Manager){
             return true;
         } else {
-            httpServletResponse.sendRedirect("/login.html");
+            httpServletResponse.sendRedirect("/login.jsp");
             return false;
         }
     }

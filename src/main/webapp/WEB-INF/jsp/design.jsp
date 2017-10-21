@@ -77,8 +77,10 @@
 <script src="/plugins/layui/layui.js"></script>
 <script src="/js/plugins/vue.js"></script>
 <script>
-    layui.use(['form'], function () {
+    var layer;
+    layui.use(['form','layer'], function () {
         var form = layui.form;
+        layer = layui.layer;
     });
     var app = new Vue({
         el: "#main",
@@ -99,19 +101,42 @@
         }
     });
     function submitDesign(){
-        var url = "${newDesignModel==1?'/admin/question/addQuestion':'/admin/question/modifyQuestion'}";
-        var k="jsonString";
-        var v = JSON.stringify(app.$data);
+        if(checkData(app.$data)==false){
+            layer.alert('有输入框内容为空！提交失败！', {icon: 2});
+        } else{
+            var url = "${newDesignModel==1?'/admin/question/addQuestion':'/admin/question/modifyQuestion'}";
+            var k="jsonString";
+            var v = JSON.stringify(app.$data);
+            var myForm = document.createElement("form");
+            myForm.method = "post";
+            myForm.action = url;
+            var myInput = document.createElement("input");
+            myInput.setAttribute("name", k);
+            myInput.setAttribute("value", v);
+            myForm.appendChild(myInput);
+            document.body.appendChild(myForm);
+            myForm.submit();
+        }
+    }
 
-        var myForm = document.createElement("form");
-        myForm.method = "post";
-        myForm.action = url;
-        var myInput = document.createElement("input");
-        myInput.setAttribute("name", k);
-        myInput.setAttribute("value", v);
-        myForm.appendChild(myInput);
-        document.body.appendChild(myForm);
-        myForm.submit();
+    function checkData(data) {
+        for(var i in data.part1){
+            if(data.part1[i]==''){
+                return false;
+            }
+        }
+        for(var i in data.part2){
+            var o = data.part2[i];
+            if(o.questionContent==''){
+                return false;
+            }
+            for(var j in o.answerContent){
+                if(o.answerContent[j]==''){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 </script>
 

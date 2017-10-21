@@ -4,9 +4,12 @@ import edu.zust.survey.common.Const;
 import edu.zust.survey.entity.Manager;
 import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IManagerService;
+import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.service.IStudentService;
+import edu.zust.survey.vo.Questionnaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,9 +29,13 @@ public class LoginController {
     @Autowired
     private IStudentService studentService;
 
-    @RequestMapping(value = "student", method = RequestMethod.POST)
-    public String studentLogin(HttpServletResponse resp, HttpSession session, String username, String password){
+    @Autowired
+    private IQuestionService questionService;
+
+    @RequestMapping(value = "student", method = RequestMethod.POST )
+    public String studentLogin(HttpServletResponse resp, HttpSession session, String username, String password, Model model){
         Student student = studentService.login(username, password);
+
         if (student != null){
             if (student.getAnswered() == 1){
                 //TODO 已经答题
@@ -37,7 +44,13 @@ public class LoginController {
             session.setAttribute(Const.CURRENT_USER, student);
             System.out.println("登陆!!!");
             addMajorTable(session);
-            return "redirect:/student/question/getAllQuestions";
+            //return "redirect:/student/question/getAllQuestions";
+
+            Integer majorId = student.getMajorId();
+            System.out.println(questionService.getAllQuestions(majorId));
+            Questionnaire questionnaire = questionService.getAllQuestions(majorId);
+            model.addAttribute(Const.QUESTIONNAIRE, questionnaire);
+            return "survey";
         }
         return "loginFailed";
 

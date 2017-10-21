@@ -24,7 +24,8 @@ public class QuestionController {
     @Autowired
     private IQuestionService questionService;
 
-    @RequestMapping(value = "student/question/getAllQuestions", method = RequestMethod.GET)
+    //废弃
+    /*@RequestMapping(value = "student/question/getAllQuestions", method = RequestMethod.GET)
     public String getAllQuestions(HttpSession session, Model model){
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         Integer majorId = student.getMajorId();
@@ -34,7 +35,7 @@ public class QuestionController {
         String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
         model.addAttribute(Const.MAJOR_TABLE,majorTable);
         return "survey";
-    }
+    }*/
 
     @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.POST)
     public String addQuestion(HttpSession session, String jsonString){

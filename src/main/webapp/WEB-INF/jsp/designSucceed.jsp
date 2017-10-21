@@ -13,6 +13,6 @@
         var layer = layui.layer;
         layer.alert('设计成功！', {icon: 1});
     });
-    setTimeout("window.location.href='/admin/getDesignModel'",1000);
+    setTimeout("window.location.href='/admin/getDesignModel,1000);
 </script>
 </html>

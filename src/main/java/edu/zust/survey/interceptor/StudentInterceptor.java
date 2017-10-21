@@ -19,7 +19,7 @@ public class StudentInterceptor implements HandlerInterceptor {
         if (object instanceof Student){
             return true;
         } else {
-            httpServletResponse.sendRedirect("/login.html");
+            httpServletResponse.sendRedirect("/login.jsp");
             return false;
         }
     }
