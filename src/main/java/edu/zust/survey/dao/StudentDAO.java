@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
+
 /**
  * Created by Lee on 2017/10/19.
  */
@@ -18,7 +20,13 @@ public class StudentDAO {
     public Student selectByUsernameAndPassword(String username, String password){
         System.out.println("???");
         Session session = sessionFactory.openSession();
-        Student student = session.createQuery("from student where username=? and password=?", Student.class).setParameter(0, username).setParameter(1, password).getSingleResult();
+        Student student = null;
+        Query query = session.createQuery("from student where username=? and password=?");
+        query.setParameter(0, username);
+        query.setParameter(1, password);
+        if (query.getResultList().size() != 0){
+            student = (Student) query.getSingleResult();
+        }
         session.close();
         System.out.println(student + "!!!!");
         return student;

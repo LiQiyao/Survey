@@ -52,6 +52,11 @@ public class ManagerController {
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             Design design = questionService.assembelDesignModel(manager.getMajorId());
+            if (design.getPart1().size() == 0 && design.getPart2().size() == 0){
+                model.addAttribute("newDesignModel", 1);
+            }else {
+                model.addAttribute("newDesignModel", 0);
+            }
             Gson gson = new Gson();
             String json = gson.toJson(design);
             model.addAttribute(Const.DESIGN, json);

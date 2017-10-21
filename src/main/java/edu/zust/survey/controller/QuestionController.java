@@ -2,6 +2,7 @@ package edu.zust.survey.controller;
 
 import edu.zust.survey.common.Const;
 import edu.zust.survey.common.QuestionnaireCache;
+import edu.zust.survey.entity.Manager;
 import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.vo.Questionnaire;
@@ -35,17 +36,25 @@ public class QuestionController {
         return "survey";
     }
 
-    @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.POST)
     public String addQuestion(HttpSession session, String jsonString){
-        jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
-        questionService.addQuestions(1, jsonString);
+        //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            questionService.addQuestions(manager.getMajorId(), jsonString);
+            return "design";
+        }
         return "";
     }
 
-    @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.POST)
     public String modifyQuestion(HttpSession session, String jsonString){
-        jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
-        questionService.modifyQuestions(1, jsonString);
+        //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            questionService.modifyQuestions(manager.getMajorId(), jsonString);
+            return "design";
+        }
         return "";
     }
 }

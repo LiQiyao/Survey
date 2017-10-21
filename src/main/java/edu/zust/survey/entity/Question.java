@@ -22,7 +22,7 @@ public class Question {
 
     private Integer type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     //@JoinColumn(name = "questionId")
     private List<Answer> answers = Lists.newArrayList();
 

@@ -20,7 +20,7 @@
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                 <legend>一、毕业要求达成度调查 - 设计</legend>
             </fieldset>
-            <blockquote class="layui-elem-quote">注意：该部分题目选项已被固定为“非常同意”，“较为同意”，“同意”，“不同意”。</blockquote>
+            <blockquote class="layui-elem-quote">注意：该部分题目选项已被固定为“完全达到”，“基本达到”，“未达到”，“差距很大”。</blockquote>
             
             <div class="part1-ask" v-for="(item,index) in part1">
                 <span>{{index+1}}. </span>
@@ -70,7 +70,7 @@
             <blockquote class="layui-elem-quote layui-quote-nm">本部分无须设计。有一个文本框，供毕业生输入反馈意见。</blockquote>
         </div>
         <div>
-            <button class="layui-btn layui-btn-big layui-btn-normal">保存设计</button>
+            <button class="layui-btn layui-btn-big layui-btn-normal" onclick="submitDesign()">保存设计</button>
         </div>
     </div>
 </body>
@@ -98,6 +98,21 @@
             }
         }
     });
+    function submitDesign(){
+        var url = "${newDesignModel==1?'/admin/question/addQuestion':'/admin/question/modifyQuestion'}";
+        var k="jsonString";
+        var v = JSON.stringify(app.$data);
+
+        var myForm = document.createElement("form");
+        myForm.method = "post";
+        myForm.action = url;
+        var myInput = document.createElement("input");
+        myInput.setAttribute("name", k);
+        myInput.setAttribute("value", v);
+        myForm.appendChild(myInput);
+        document.body.appendChild(myForm);
+        myForm.submit();
+    }
 </script>
 
 </html>

@@ -37,7 +37,7 @@ public class QuestionServiceImpl implements IQuestionService{
 
     public Design assembelDesignModel(Integer majorId){
         List<Question> qPart1 = questionDAO.getPart1(majorId);
-        List<Question> qPart2 = questionDAO.getPart1(majorId);
+        List<Question> qPart2 = questionDAO.getPart2(majorId);
         List<String> part1 = Lists.newArrayList();
         for (Question q : qPart1){
             part1.add(q.getQuestionContent());
@@ -80,7 +80,7 @@ public class QuestionServiceImpl implements IQuestionService{
             question = new Question();
             question.setMajorId(majorId);
             question.setQuestionContent(cq.getQuestionContent());
-            question.setType(1);
+            question.setType(2);
             answers = Lists.newArrayList();
             for (String as : cq.getAnswerContent()){
                 answers.add(new Answer(as, question));
