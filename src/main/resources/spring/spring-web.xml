@@ -14,8 +14,12 @@
     <mvc:interceptors>
         <bean class="edu.zust.survey.interceptor.AllInterceptor"/>
         <mvc:interceptor>
-            <mvc:mapping path="/manager/*"/>
+            <mvc:mapping path="/admin/**/*"/>
             <bean class="edu.zust.survey.interceptor.ManagerInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/student/**/*"/>
+            <bean class="edu.zust.survey.interceptor.StudentInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>
