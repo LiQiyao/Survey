@@ -6,7 +6,7 @@ import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IManagerService;
 import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.service.IStudentService;
-import edu.zust.survey.vo.Questionnaire;
+import edu.zust.survey.vo.QuestionnaireModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,8 +48,8 @@ public class LoginController {
 
             Integer majorId = student.getMajorId();
             System.out.println(questionService.getAllQuestions(majorId));
-            Questionnaire questionnaire = questionService.getAllQuestions(majorId);
-            model.addAttribute(Const.QUESTIONNAIRE, questionnaire);
+            QuestionnaireModel questionnaireModel = questionService.getAllQuestions(majorId);
+            model.addAttribute(Const.QUESTIONNAIRE, questionnaireModel);
             return "survey";
         }
         return "loginFailed";

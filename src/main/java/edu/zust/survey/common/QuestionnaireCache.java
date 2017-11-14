@@ -1,11 +1,8 @@
 package edu.zust.survey.common;
 
 import com.google.common.collect.Maps;
-import edu.zust.survey.service.IQuestionService;
-import edu.zust.survey.vo.Questionnaire;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.zust.survey.vo.QuestionnaireModel;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +10,7 @@ import java.util.Map;
  */
 public class QuestionnaireCache {
 
-    private Map<Integer, Questionnaire> map = Maps.newHashMap();
+    private Map<Integer, QuestionnaireModel> map = Maps.newHashMap();
 
     public QuestionnaireCache(){
         for (int i = 1; i <= Const.MAJOR_COUNT; i++){
@@ -21,11 +18,11 @@ public class QuestionnaireCache {
         }
     }
 
-    public Questionnaire getQuestionnaire(Integer majorId){
+    public QuestionnaireModel getQuestionnaire(Integer majorId){
         return map.get(majorId);
     }
 
-    public void putQuestionnaire(Integer majorId, Questionnaire questionnaire){
-        map.put(majorId, questionnaire);
+    public void putQuestionnaire(Integer majorId, QuestionnaireModel questionnaireModel){
+        map.put(majorId, questionnaireModel);
     }
 }

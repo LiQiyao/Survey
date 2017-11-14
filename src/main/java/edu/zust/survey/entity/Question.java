@@ -1,30 +1,47 @@
 package edu.zust.survey.entity;
 
-import com.google.common.collect.Lists;
-
-import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Lee on 2017/10/19.
- */
-@Entity(name = "question")
 public class Question {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "question_content")
     private String questionContent;
 
-    @Column(name = "major_id")
     private Integer majorId;
 
     private Integer type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "questionId")
-    private List<Answer> answers = Lists.newArrayList();
+    private Integer questionnaireId;
+
+    private List<Answer> answers;
+
+    public Question(Integer id, String questionContent, Integer majorId, Integer type, Integer questionnaireId) {
+        this.id = id;
+        this.questionContent = questionContent;
+        this.majorId = majorId;
+        this.type = type;
+        this.questionnaireId = questionnaireId;
+    }
+
+    public Question(String questionContent, Integer majorId, Integer type, Integer questionnaireId, List<Answer> answers) {
+        this.questionContent = questionContent;
+        this.majorId = majorId;
+        this.type = type;
+        this.questionnaireId = questionnaireId;
+        this.answers = answers;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public Question() {
+        super();
+    }
 
     public Integer getId() {
         return id;
@@ -39,7 +56,7 @@ public class Question {
     }
 
     public void setQuestionContent(String questionContent) {
-        this.questionContent = questionContent;
+        this.questionContent = questionContent == null ? null : questionContent.trim();
     }
 
     public Integer getMajorId() {
@@ -58,23 +75,11 @@ public class Question {
         this.type = type;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
+    public Integer getQuestionnaireId() {
+        return questionnaireId;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setQuestionnaireId(Integer questionnaireId) {
+        this.questionnaireId = questionnaireId;
     }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", questionContent='" + questionContent + '\'' +
-                ", majorId=" + majorId +
-                ", type=" + type +
-                ", answers=" + answers +
-                '}';
-    }
-
 }

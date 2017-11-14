@@ -1,13 +1,6 @@
 package edu.zust.survey.entity;
 
-import javax.persistence.*;
-
-/**
- * Created by Lee on 2017/10/19.
- */
-@Entity(name = "student")
 public class Student {
-    @Id
     private Integer id;
 
     private String username;
@@ -16,27 +9,27 @@ public class Student {
 
     private String name;
 
-    @Column(name = "major_id")
     private Integer majorId;
+
+    private Integer grade;
 
     private String klasse;
 
     private Integer answered;
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    private Suggestion suggestion;
+    public Student(Integer id, String username, String password, String name, Integer majorId, Integer grade, String klasse, Integer answered) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.majorId = majorId;
+        this.grade = grade;
+        this.klasse = klasse;
+        this.answered = answered;
+    }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", majorId=" + majorId +
-                ", klasse='" + klasse + '\'' +
-                ", answered=" + answered +
-                '}';
+    public Student() {
+        super();
     }
 
     public Integer getId() {
@@ -52,7 +45,7 @@ public class Student {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {
@@ -60,7 +53,7 @@ public class Student {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
     public String getName() {
@@ -68,7 +61,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Integer getMajorId() {
@@ -79,12 +72,20 @@ public class Student {
         this.majorId = majorId;
     }
 
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
     public String getKlasse() {
         return klasse;
     }
 
     public void setKlasse(String klasse) {
-        this.klasse = klasse;
+        this.klasse = klasse == null ? null : klasse.trim();
     }
 
     public Integer getAnswered() {
@@ -93,13 +94,5 @@ public class Student {
 
     public void setAnswered(Integer answered) {
         this.answered = answered;
-    }
-
-    public Suggestion getSuggestion() {
-        return suggestion;
-    }
-
-    public void setSuggestion(Suggestion suggestion) {
-        this.suggestion = suggestion;
     }
 }

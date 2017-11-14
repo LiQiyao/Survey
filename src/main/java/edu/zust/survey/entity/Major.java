@@ -1,19 +1,18 @@
 package edu.zust.survey.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-/**
- * Created by Lee on 2017/10/19.
- */
-@Entity(name = "major")
 public class Major {
-    @Id
     private Integer id;
 
-    @Column(name = "major_name")
     private String majorName;
+
+    public Major(Integer id, String majorName) {
+        this.id = id;
+        this.majorName = majorName;
+    }
+
+    public Major() {
+        super();
+    }
 
     public Integer getId() {
         return id;
@@ -28,6 +27,6 @@ public class Major {
     }
 
     public void setMajorName(String majorName) {
-        this.majorName = majorName;
+        this.majorName = majorName == null ? null : majorName.trim();
     }
 }

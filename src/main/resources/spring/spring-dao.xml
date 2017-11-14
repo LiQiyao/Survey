@@ -5,7 +5,6 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:property-placeholder location="classpath*:datasource.properties" ignore-unresolvable="true"/>
-    <context:property-placeholder location="classpath*:hibernate.properties" ignore-unresolvable="true"/>
     <context:component-scan base-package="edu.zust.survey.dao"/>
 <!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -44,34 +43,17 @@
 
         <!-- 关闭 abanded 连接时输出错误日志 -->
     </bean>
-    <!-- 配置hibernate session工厂 -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
-            </props>
-        </property>
-
-        <!-- 自动扫描注解方式配置的hibernate类文件 -->
-        <property name="packagesToScan">
-            <list>
-            <value>edu.zust.survey.entity</value>
-            </list>
-        </property>
-
-        <!-- 自动扫描hbm方式配置的hibernate文件和.hbm文件 -->
-        <!-- <property name="mappingDirectoryLocations"> <list> <value>classpath:sy/hbm<alue> <st> </property> -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="typeAliasesPackage" value="com.yykj.entity"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.yykj.dao"/>
     </bean>
     <aop:aspectj-autoproxy/>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

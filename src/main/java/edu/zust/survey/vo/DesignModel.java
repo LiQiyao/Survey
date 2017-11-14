@@ -6,14 +6,15 @@ import java.util.List;
 /**
  * Created by Lee on 2017/10/20.
  */
-public class Design {
+public class DesignModel {
 
+    private String name;
     private List<String> part1;
     private List<CustomQuestion> part2;
 
     @Override
     public String toString() {
-        return "Design{" +
+        return "DesignModel{" +
                 "part1=" + part1 +
                 ", part2=" + part2 +
                 '}';
@@ -35,11 +36,25 @@ public class Design {
         this.part2 = part2;
     }
 
-    public Design(List<String> part1, List<CustomQuestion> part2) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+/*    public DesignModel(List<String> part1, List<CustomQuestion> part2) {
+        this.part1 = part1;
+        this.part2 = part2;
+    }*/
+
+    public DesignModel(String name, List<String> part1, List<CustomQuestion> part2) {
+        this.name = name;
         this.part1 = part1;
         this.part2 = part2;
     }
 
-    public Design() {
+    public DesignModel() {
     }
 }

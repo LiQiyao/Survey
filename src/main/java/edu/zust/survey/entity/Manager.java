@@ -1,28 +1,30 @@
 package edu.zust.survey.entity;
 
-import javax.persistence.*;
-
-/**
- * Created by Lee on 2017/10/19.
- */
-@Entity(name = "manager")
 public class Manager {
-
-    @Id
-    private int id;
+    private Integer id;
 
     private String username;
 
     private String password;
 
-    @Column(name = "major_id")
-    private int majorId;
+    private Integer majorId;
 
-    public int getId() {
+    public Manager(Integer id, String username, String password, Integer majorId) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.majorId = majorId;
+    }
+
+    public Manager() {
+        super();
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,7 +33,7 @@ public class Manager {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {
@@ -39,21 +41,18 @@ public class Manager {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
-    public int getMajorId() {
+    public Integer getMajorId() {
         return majorId;
     }
 
-    public void setMajorId(int majorId) {
+    public void setMajorId(Integer majorId) {
         this.majorId = majorId;
     }
 
-    public Manager() {
-    }
-
-    public Manager(String username, String password, int majorId) {
+    public Manager(String username, String password, Integer majorId) {
         this.username = username;
         this.password = password;
         this.majorId = majorId;

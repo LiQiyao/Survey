@@ -1,8 +1,10 @@
 package edu.zust.survey.service.impl;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import edu.zust.survey.dao.*;
 import edu.zust.survey.entity.Answer;
+import edu.zust.survey.entity.DisplayForm;
 import edu.zust.survey.entity.Question;
 import edu.zust.survey.entity.Suggestion;
 import edu.zust.survey.service.IStatisticService;
@@ -20,35 +22,55 @@ import java.util.Map;
 public class StatisticServiceImpl implements IStatisticService{
 
     @Autowired
-    private SuggestionDAO suggestionDAO;
+    private SuggestionMapper suggestionMapper;
 
     @Autowired
-    private StudentDAO studentDAO;
+    private StudentMapper studentMapper;
 
     @Autowired
-    private QuestionDAO questionDAO;
+    private QuestionMapper questionMapper;
 
     @Autowired
-    private StuAnsDAO stuAnsDAO;
+    private DisplayFormMapper displayFormMapper;
+
+    @Autowired
+    private AnswerMapper answerMapper;
+
+    @Autowired
+    private StuAnsMapper stuAnsMapper;
+
 
     public List<Suggestion> getSuggestionList(int majorId){
-        return suggestionDAO.querySuggestions(majorId);
+        return suggestionMapper.selectAllByMajorId(majorId);
     }
 
-    public Integer getCountSum(Integer majorId){
-        return studentDAO.queryCountSum(majorId);
+    public Integer getCountSum(Integer majorId, Integer grade){
+        return studentMapper.selectCountSumByMajorIdAndGrade(majorId, grade);
     }
 
-    public Integer getAnsweredCountSum(Integer majorId){
-        return studentDAO.queryAnsweredCountSum(majorId);
+    public Integer getAnsweredCountSum(Integer majorId, Integer grade){
+        return studentMapper.selectAnsweredCountSumByMajorIdAndGrade(majorId, grade);
     }
 
-    public Map<Integer, Integer> getResultMap(Integer majorId) {
+    //根据年级和问卷编号返回不同的结果集，结果集中是回答id与回答被选择次数的映射
+    public Map<Integer, Integer> getStatisticResultMap(Integer questionnaireId, Integer grade) {
+
+        DisplayForm displayForm = displayFormMapper.selectByQuestionnaireIdAndGrade(questionnaireId, grade);
         Map<Integer, Integer> resultMap = Maps.newHashMap();
-        List<Question> questions = questionDAO.selectAllQuestionsByMajorId(majorId);
+        List<Question> questions = Lists.newArrayList();
+
+        if (displayForm.getPart1IsDisplay()){
+            questions.addAll(questionMapper.selectByQuestionnaireIdAndType(questionnaireId, 1));
+        }
+        if (displayForm.getPart2IsDisplay()){
+            questions.addAll(questionMapper.selectByQuestionnaireIdAndType(questionnaireId, 2));
+        }
+
+        List<Answer> answers = Lists.newArrayList();
         for (Question q : questions){
-            for (Answer answer : q.getAnswers()){
-                resultMap.put(answer.getId(), stuAnsDAO.queryCountByAnswerId(answer.getId()));
+            answers = answerMapper.selectByQuestionId(q.getId());
+            for (Answer answer : answers){
+                resultMap.put(answer.getId(), stuAnsMapper.selectCountByAnswerIdAndGrade(answer.getId(), grade));
             }
         }
         return resultMap;

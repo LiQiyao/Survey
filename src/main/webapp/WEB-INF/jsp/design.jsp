@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/plugins/layui/css/layui.css" />
-    <link rel="stylesheet" href="/css/design.css" />
-    <title>design</title>
+    <link rel="stylesheet" href="/css/designModel.css" />
+    <title>designModel</title>
 </head>
 
 <body>
@@ -84,7 +84,7 @@
     });
     var app = new Vue({
         el: "#main",
-        data: ${design},
+        data: ${designModel},
         methods:{
             remove:function(arr,index){
                 arr.splice(index,1);

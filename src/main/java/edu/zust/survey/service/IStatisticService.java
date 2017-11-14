@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IStatisticService {
     List<Suggestion> getSuggestionList(int majorId);
-    Integer getCountSum(Integer majorId);
-    Integer getAnsweredCountSum(Integer majorId);
-    Map<Integer, Integer> getResultMap(Integer majorId);
+    Integer getCountSum(Integer majorId, Integer grade);
+    Integer getAnsweredCountSum(Integer majorId, Integer grade);
+    Map<Integer, Integer> getStatisticResultMap(Integer questionnaireId, Integer grade);
 }

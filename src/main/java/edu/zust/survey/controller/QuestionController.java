@@ -1,14 +1,10 @@
 package edu.zust.survey.controller;
 
 import edu.zust.survey.common.Const;
-import edu.zust.survey.common.QuestionnaireCache;
 import edu.zust.survey.entity.Manager;
-import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IQuestionService;
-import edu.zust.survey.vo.Questionnaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,7 +26,7 @@ public class QuestionController {
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         Integer majorId = student.getMajorId();
         System.out.println(questionService.getAllQuestions(majorId));
-        Questionnaire questionnaire = questionService.getAllQuestions(majorId);
+        QuestionnaireModel questionnaire = questionService.getAllQuestions(majorId);
         model.addAttribute(Const.QUESTIONNAIRE, questionnaire);
         String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
         model.addAttribute(Const.MAJOR_TABLE,majorTable);

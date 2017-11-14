@@ -7,13 +7,15 @@ import java.util.List;
 /**
  * Created by Lee on 2017/10/19.
  */
-public class Questionnaire {
+public class QuestionnaireModel {
+
+    private String name;
     private List<Question> part1;
     private List<Question> part2;
 
     @Override
     public String toString() {
-        return "Questionnaire{" +
+        return "QuestionnaireModel{" +
                 "part1=" + part1 +
                 ", part2=" + part2 +
                 '}';
@@ -35,11 +37,19 @@ public class Questionnaire {
         this.part2 = part2;
     }
 
-    public Questionnaire(List<Question> part1, List<Question> part2) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public QuestionnaireModel(List<Question> part1, List<Question> part2) {
         this.part1 = part1;
         this.part2 = part2;
     }
 
-    public Questionnaire() {
+    public QuestionnaireModel() {
     }
 }

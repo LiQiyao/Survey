@@ -33,7 +33,7 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>一、毕业要求达成度调查</legend>
                 </fieldset>
-                <c:forEach var="question" items="${questionnaire.part1}">
+                <c:forEach var="question" items="${questionnaireModel.part1}">
                     <div class="question-block">
                         <div class="question-title"><%=++part1count%>. ${question.questionContent}</div>
                         <div class="choice">
@@ -50,7 +50,7 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>二、毕业生跟踪调查</legend>
                 </fieldset>
-                <c:forEach var="question" items="${questionnaire.part2}">
+                <c:forEach var="question" items="${questionnaireModel.part2}">
                     <div class="question-block">
                         <div class="question-title"><%=++part2count%>. ${question.questionContent}</div>
                         <div class="choice">

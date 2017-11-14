@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zust.survey.dao.AnswerMapper" >
+  <resultMap id="BaseResultMap" type="edu.zust.survey.entity.Answer" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="question_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="answer_content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="answer_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, question_id, answer_content, answer_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from answer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from answer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.zust.survey.entity.Answer" >
+    insert into answer (id, question_id, answer_content, 
+      answer_no)
+    values (#{id,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, #{answerContent,jdbcType=VARCHAR}, 
+      #{answerNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zust.survey.entity.Answer" >
+    insert into answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="answerContent != null" >
+        answer_content,
+      </if>
+      <if test="answerNo != null" >
+        answer_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="answerContent != null" >
+        #{answerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="answerNo != null" >
+        #{answerNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zust.survey.entity.Answer" >
+    update answer
+    <set >
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="answerContent != null" >
+        answer_content = #{answerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="answerNo != null" >
+        answer_no = #{answerNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zust.survey.entity.Answer" >
+    update answer
+    set question_id = #{questionId,jdbcType=INTEGER},
+      answer_content = #{answerContent,jdbcType=VARCHAR},
+      answer_no = #{answerNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="batchInsert" parameterType="list">
+    insert into answer (quetion_id, answer_content, answer_no) values
+    <foreach collection="answers" index="index" item="item" separator=",">
+    (#{item.questionId}, #{item.answerContent}, #{item.answerNo})
+    </foreach>
+  </insert>
+
+  <select id="selectByQuestionId" resultType="edu.zust.survey.entity.Answer">
+    select
+     <include refid="Base_Column_List"/>
+     from answer where question_id=#{questionId}
+  </select>
+</mapper>

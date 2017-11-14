@@ -1,11 +1,9 @@
 package edu.zust.survey.service.impl;
 
-import edu.zust.survey.dao.ManagerDAO;
+import edu.zust.survey.dao.ManagerMapper;
 import edu.zust.survey.entity.Manager;
 import edu.zust.survey.service.IManagerService;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ManagerServiceImpl implements IManagerService{
 
     @Autowired
-    private ManagerDAO managerDAO;
+    private ManagerMapper managerMapper;
 
     @Override
     public Manager login(String username, String password) {
-        Manager manager = managerDAO.selectByUsernameAndPassword(username, password);
+        Manager manager = managerMapper.selectByUsernameAndPassword(username, password);
         if (manager != null){
             manager.setPassword(StringUtils.EMPTY);
         }
@@ -32,6 +30,7 @@ public class ManagerServiceImpl implements IManagerService{
     @Transactional
     public boolean addManager(String username, String password, Integer majorId) {
         Manager manager = new Manager(username, password, majorId);
-        return managerDAO.insertManager(manager);
+        managerMapper.insert(manager);
+        return true;
     }
 }

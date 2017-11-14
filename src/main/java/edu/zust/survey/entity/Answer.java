@@ -1,29 +1,29 @@
 package edu.zust.survey.entity;
 
-import javax.persistence.*;
-
-/**
- * Created by Lee on 2017/10/19.
- */
-@Entity(name = "answer")
 public class Answer {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-/*    @Column(name = "question_id")
-    private Integer questionId;*/
+    private Integer questionId;
 
-    @Column(name = "answer_content")
     private String answerContent;
 
-    @Column(name = "answer_no")
     private String answerNo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private Question question;
+    public Answer(Integer id, Integer questionId, String answerContent, String answerNo) {
+        this.id = id;
+        this.questionId = questionId;
+        this.answerContent = answerContent;
+        this.answerNo = answerNo;
+    }
+
+    public Answer(Integer questionId, String answerContent) {
+        this.questionId = questionId;
+        this.answerContent = answerContent;
+    }
+
+    public Answer() {
+        super();
+    }
 
     public Integer getId() {
         return id;
@@ -33,20 +33,20 @@ public class Answer {
         this.id = id;
     }
 
-/*    public Integer getQuestionId() {
+    public Integer getQuestionId() {
         return questionId;
     }
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
-    }*/
+    }
 
     public String getAnswerContent() {
         return answerContent;
     }
 
     public void setAnswerContent(String answerContent) {
-        this.answerContent = answerContent;
+        this.answerContent = answerContent == null ? null : answerContent.trim();
     }
 
     public String getAnswerNo() {
@@ -54,26 +54,6 @@ public class Answer {
     }
 
     public void setAnswerNo(String answerNo) {
-        this.answerNo = answerNo;
-    }
-
-    public Answer(String answerContent) {
-        this.answerContent = answerContent;
-    }
-
-    public Answer() {
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public Answer(String answerContent, Question question) {
-        this.answerContent = answerContent;
-        this.question = question;
+        this.answerNo = answerNo == null ? null : answerNo.trim();
     }
 }
