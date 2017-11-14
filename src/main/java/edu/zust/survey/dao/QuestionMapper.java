@@ -23,4 +23,8 @@ public interface QuestionMapper {
     List<Question> selectByQuestionnaireId(int questionnaireId);
 
     List<Question> selectByQuestionnaireIdAndType(@Param("questionnaireId") int questionnaireId,@Param("type") int type);
+
+    int deleteByQuestionnaireId(int questionnaireId);
+
+    List<Integer> selectIdByQuestionnaireId(int questionnaireId);
 }

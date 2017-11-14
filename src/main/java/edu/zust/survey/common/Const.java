@@ -6,9 +6,9 @@ package edu.zust.survey.common;
 public class Const {
     public static final String CURRENT_USER = "currentUser";
     public static final int MAJOR_COUNT = 6;
-    public static final String QUESTIONNAIRE = "questionnaire";
+    public static final String QUESTIONNAIRE_MODEL = "questionnaire";
     public static final String MAJOR_TABLE = "majorTable";
-    public static final String DESIGN = "design";
+    public static final String DESIGN_MODEL = "design";
 
     public static final String STUDENT_COUNT = "studentCount";
     public static final String ANSWERED_COUNT = "answerCount";

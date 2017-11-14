@@ -20,4 +20,6 @@ public interface AnswerMapper {
     int batchInsert(List<Answer> answers);
 
     List<Answer> selectByQuestionId(int questionId);
+
+    int deleteByQuestionId(int questionId);
 }

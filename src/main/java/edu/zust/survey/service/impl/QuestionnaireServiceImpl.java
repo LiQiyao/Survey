@@ -3,14 +3,8 @@ package edu.zust.survey.service.impl;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import edu.zust.survey.common.GenericBuilder;
-import edu.zust.survey.dao.AnswerMapper;
-import edu.zust.survey.dao.DisplayFormMapper;
-import edu.zust.survey.dao.QuestionMapper;
-import edu.zust.survey.dao.QuestionnaireMapper;
-import edu.zust.survey.entity.Answer;
-import edu.zust.survey.entity.DisplayForm;
-import edu.zust.survey.entity.Question;
-import edu.zust.survey.entity.Questionnaire;
+import edu.zust.survey.dao.*;
+import edu.zust.survey.entity.*;
 import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.vo.CustomQuestion;
 import edu.zust.survey.vo.DesignModel;
@@ -40,15 +34,28 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
     @Autowired
     private DisplayFormMapper displayFormMapper;
 
+    @Autowired
+    private MajorMapper majorMapper;
+
+    @Override
     @Transactional
-    public boolean createQuestionnaire(Integer majorId, String jsonString) {
+    public boolean createQuestionnaire(Integer majorId, String jsonString, Integer questionnaireId) {
         Gson gson = new Gson();
         DesignModel designModel = gson.fromJson(jsonString, DesignModel.class);
         System.out.println(designModel);
 
         //创建问卷
         String questionnaireName = designModel.getName();
-        Questionnaire questionnaire = new Questionnaire(questionnaireName, majorId, new Date().getTime(), new Date().getTime());
+
+        Questionnaire questionnaire = GenericBuilder.of(Questionnaire::new)
+                .with(Questionnaire::setName, questionnaireName)
+                .with(Questionnaire::setMajorId, majorId)
+                .with(Questionnaire::setCreateTime, new Date().getTime())
+                .with(Questionnaire::setUpdateTime, new Date().getTime()).build();
+        if (questionnaireId != null){
+            //创建时制定了id，即属于修改操作，则设置id存入数据库
+            questionnaire.setId(questionnaireId);
+        }
         questionnaireMapper.insertSelective(questionnaire);
 
         List<Question> questions = Lists.newArrayList();
@@ -100,8 +107,10 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
         return true;
     }
 
-    @Override
-    public QuestionnaireModel assembleQuestionnaireModel(Integer questionnaireId, Integer grade) {
+
+    @Transactional
+    private QuestionnaireModel assembleQuestionnaireModel(Integer questionnaireId, Integer grade) {
+
         if (questionnaireId != null && grade != null){
             Questionnaire questionnaire = questionnaireMapper.selectByPrimaryKey(questionnaireId);
 
@@ -136,6 +145,20 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
     }
 
     @Override
+    public QuestionnaireModel getQuestionnaireModel(Student student){
+        Integer majorId = student.getMajorId();
+        Integer grade = student.getGrade();
+        Major currentMajor = majorMapper.selectByPrimaryKey(majorId);
+        Integer questionnaireId = currentMajor.getDisplayQuestionnaireId();
+        return assembleQuestionnaireModel(questionnaireId, grade);
+    }
+
+    @Override
+    public QuestionnaireModel getQuestionnaireModel(Integer questionnaireId, Integer grade){
+        return assembleQuestionnaireModel(questionnaireId, grade);
+    }
+
+    @Override
     public DesignModel assembleDesignModel(Integer questionnaireId) {
 
         Questionnaire questionnaire = questionnaireMapper.selectByPrimaryKey(questionnaireId);
@@ -163,5 +186,31 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                 .with(DesignModel::setName, questionnaire.getName())
                 .with(DesignModel::setPart1, part1)
                 .with(DesignModel::setPart2, part2).build();
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteQuestionnaireModel(Integer questionnaireId) {
+        int resultCount = questionnaireMapper.deleteByPrimaryKey(questionnaireId);
+        if (resultCount > 0){
+            List<Integer> questionIds = questionMapper.selectIdByQuestionnaireId(questionnaireId);
+            for (Integer questionId : questionIds){
+                resultCount = answerMapper.deleteByQuestionId(questionId);
+                if (resultCount < 0){
+                    return false;
+                }
+            }
+            resultCount = questionMapper.deleteByQuestionnaireId(questionnaireId);
+            if (resultCount > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean modifyQuestionnaireModel(Integer majorId, Integer questionnaireId, String jsonString) {
+        return deleteQuestionnaireModel(questionnaireId) && createQuestionnaire(majorId, jsonString, questionnaireId);
     }
 }

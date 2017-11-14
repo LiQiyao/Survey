@@ -33,7 +33,7 @@ public class QuestionController {
         return "survey";
     }*/
 
-    @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.POST)
+/*    @RequestMapping(value = "admin/question/addQuestion", method = RequestMethod.POST)
     public String addQuestion(HttpSession session, String jsonString){
         //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
@@ -42,9 +42,9 @@ public class QuestionController {
             return "designSucceed";
         }
         return "loginFailed";
-    }
+    }*/
 
-    @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.POST)
+/*    @RequestMapping(value = "admin/question/modifyQuestion", method = RequestMethod.POST)
     public String modifyQuestion(HttpSession session, String jsonString){
         //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
@@ -53,5 +53,5 @@ public class QuestionController {
             return "designSucceed";
         }
         return "loginFailed";
-    }
+    }*/
 }

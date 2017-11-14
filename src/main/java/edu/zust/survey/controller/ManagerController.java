@@ -59,7 +59,7 @@ public class ManagerController {
             }
             Gson gson = new Gson();
             String json = gson.toJson(designModel);
-            model.addAttribute(Const.DESIGN, json);
+            model.addAttribute(Const.DESIGN_MODEL, json);
         }
         return "design";
     }
@@ -73,8 +73,8 @@ public class ManagerController {
             model.addAttribute(Const.ANSWERED_COUNT, statisticService.getAnsweredCountSum(majorId, grade));
             model.addAttribute(Const.RESULT_MAP, statisticService.getStatisticResultMap(questionnaireId, grade));//通过answerId获取回答的人数
             model.addAttribute(Const.SUGGESTION_TABLE, statisticService.getSuggestionList(majorId));
-            QuestionnaireModel questionnaireModel = questionnaireService.assembleQuestionnaireModel(questionnaireId, grade);
-            model.addAttribute(Const.QUESTIONNAIRE, questionnaireModel);
+            QuestionnaireModel questionnaireModel = questionnaireService.getQuestionnaireModel(questionnaireId, grade);
+            model.addAttribute(Const.QUESTIONNAIRE_MODEL, questionnaireModel);
         }
         return "statistics";
     }

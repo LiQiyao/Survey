@@ -5,9 +5,12 @@ public class Major {
 
     private String majorName;
 
-    public Major(Integer id, String majorName) {
+    private Integer displayQuestionnaireId;
+
+    public Major(Integer id, String majorName, Integer displayQuestionnaireId) {
         this.id = id;
         this.majorName = majorName;
+        this.displayQuestionnaireId = displayQuestionnaireId;
     }
 
     public Major() {
@@ -28,5 +31,13 @@ public class Major {
 
     public void setMajorName(String majorName) {
         this.majorName = majorName == null ? null : majorName.trim();
+    }
+
+    public Integer getDisplayQuestionnaireId() {
+        return displayQuestionnaireId;
+    }
+
+    public void setDisplayQuestionnaireId(Integer displayQuestionnaireId) {
+        this.displayQuestionnaireId = displayQuestionnaireId;
     }
 }

@@ -94,4 +94,8 @@
      <include refid="Base_Column_List"/>
      from answer where question_id=#{questionId}
   </select>
+
+  <delete id="deleteByQuestionId" parameterType="int">
+    DELETE FROM answer where question_id=#{questionId}
+  </delete>
 </mapper>

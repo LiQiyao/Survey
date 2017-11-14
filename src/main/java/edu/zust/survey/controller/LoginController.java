@@ -5,6 +5,7 @@ import edu.zust.survey.entity.Manager;
 import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IManagerService;
 import edu.zust.survey.service.IQuestionService;
+import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.service.IStudentService;
 import edu.zust.survey.vo.QuestionnaireModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class LoginController {
     private IStudentService studentService;
 
     @Autowired
-    private IQuestionService questionService;
+    private IQuestionnaireService questionnaireService;
 
     @RequestMapping(value = "student", method = RequestMethod.POST )
-    public String studentLogin(HttpServletResponse resp, HttpSession session, String username, String password, Model model){
+    public String studentLogin(HttpSession session, String username, String password, Model model){
         Student student = studentService.login(username, password);
 
         if (student != null){
@@ -42,14 +43,10 @@ public class LoginController {
                 return "thanks";
             }
             session.setAttribute(Const.CURRENT_USER, student);
-            System.out.println("登陆!!!");
             addMajorTable(session);
-            //return "redirect:/student/question/getAllQuestions";
 
-            Integer majorId = student.getMajorId();
-            System.out.println(questionService.getAllQuestions(majorId));
-            QuestionnaireModel questionnaireModel = questionService.getAllQuestions(majorId);
-            model.addAttribute(Const.QUESTIONNAIRE, questionnaireModel);
+            QuestionnaireModel questionnaireModel = questionnaireService.getQuestionnaireModel(student);
+            model.addAttribute(Const.QUESTIONNAIRE_MODEL, questionnaireModel);
             return "survey";
         }
         return "loginFailed";

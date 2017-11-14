@@ -112,4 +112,14 @@
     <include refid="Base_Column_List"/>
     from question where questionnaire_id=#{questionnaireId} and type=#{type}
   </select>
+
+  <delete id="deleteByQuestionnaireId" parameterType="int">
+    DELETE from question where questionnaire_id=#{questionnaireId}
+  </delete>
+
+  <select id="selectByQuestionnaireId" resultType="int">
+    select
+    id
+    from question where questionnaire_id=#{questionnaireId}
+  </select>
 </mapper>
