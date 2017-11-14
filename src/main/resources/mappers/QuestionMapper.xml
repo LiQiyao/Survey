@@ -96,7 +96,7 @@
   <insert id="batchInsert" parameterType="list" useGeneratedKeys="true" keyProperty="id">
     insert into question (question_content, major_id,
       type, questionnaire_id) values
-      <foreach collection="questions" index="index" item="item" separator=",">
+      <foreach collection="list" index="index" item="item" separator=",">
         (#{item.questionContent}, #{item.majorId}, #{item.type}, #{item.questionnaireId})
       </foreach>
   </insert>
@@ -117,7 +117,7 @@
     DELETE from question where questionnaire_id=#{questionnaireId}
   </delete>
 
-  <select id="selectByQuestionnaireId" resultType="int">
+  <select id="selectIdByQuestionnaireId" resultType="int">
     select
     id
     from question where questionnaire_id=#{questionnaireId}

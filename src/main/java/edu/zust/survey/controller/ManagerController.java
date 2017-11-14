@@ -41,13 +41,13 @@ public class ManagerController {
         return "login";
     }
 
-    @RequestMapping(value = "createManager", method = RequestMethod.POST)
+    @RequestMapping(value = "manager", method = RequestMethod.POST)
     public String createManager(String username, String password, Integer majorId){
         managerService.addManager(username, password, majorId);
         return "index";
     }
 
-    @RequestMapping(value = "designModel/{questionnaireId}", method = RequestMethod.GET)
+    @RequestMapping(value = "designModels/{questionnaireId}", method = RequestMethod.GET)
     public String getDesignModel(HttpSession session, Model model,@PathVariable Integer questionnaireId){
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (questionnaireId != null){
@@ -64,7 +64,7 @@ public class ManagerController {
         return "design";
     }
 
-    @RequestMapping(value = "statistic/questionnaireId/{questionnaireId}/grade/{grade}", method = RequestMethod.GET)
+    @RequestMapping(value = "statistics/questionnaireId/{questionnaireId}/grade/{grade}", method = RequestMethod.GET)
     public String getStatic(HttpSession session, Model model, @PathVariable Integer questionnaireId, @PathVariable Integer grade){
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (manager != null && questionnaireId != null && grade != null){

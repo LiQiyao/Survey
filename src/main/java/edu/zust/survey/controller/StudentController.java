@@ -25,7 +25,7 @@ public class StudentController {
     /*
         提交回答
      */
-    @RequestMapping(value = "/submitAnswer", method = RequestMethod.POST)
+    @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public String submitAnswer(HttpSession session, HttpServletRequest req){
         Student student = (Student)session.getAttribute(Const.CURRENT_USER);
         int studentId = student.getId();

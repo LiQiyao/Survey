@@ -21,8 +21,10 @@ public class QuestionnaireServiceImplTest {
 
     @Test
     public void createQuestions() throws Exception {
-        String jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
-        questionnaireService.createQuestions(1, jsonString);
+        String jsonString = "{'name':'n新问卷','part1':['n问题1','n问题2'],'part2':[{'questionContent':'n你为什么要自定义问题啊','answerContent':['new知道','不知道']},{'questionContent':'n你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
+        //questionnaireService.createQuestionnaire(1, jsonString, null);
+        //questionnaireService.deleteQuestionnaireModel(14);
+        questionnaireService.modifyQuestionnaireModel(1, 15 ,jsonString);
     }
 
 }

@@ -83,8 +83,8 @@
   </update>
   
   <insert id="batchInsert" parameterType="list">
-    insert into answer (quetion_id, answer_content, answer_no) values
-    <foreach collection="answers" index="index" item="item" separator=",">
+    insert into answer (question_id, answer_content, answer_no) values
+    <foreach collection="list" index="index" item="item" separator=",">
     (#{item.questionId}, #{item.answerContent}, #{item.answerNo})
     </foreach>
   </insert>

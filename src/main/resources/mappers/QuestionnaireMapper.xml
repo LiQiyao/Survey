@@ -16,21 +16,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from questionnaireModel
+    from questionnaire
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from questionnaireModel
+    delete from questionnaire
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="edu.zust.survey.entity.Questionnaire" useGeneratedKeys="true" keyProperty="id">
-    insert into questionnaireModel (id, name, major_id,
+    insert into questionnaire (id, name, major_id,
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{majorId,jdbcType=INTEGER}, 
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="edu.zust.survey.entity.Questionnaire" useGeneratedKeys="true" keyProperty="id">
-    insert into questionnaireModel
+    insert into questionnaire
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -67,7 +67,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zust.survey.entity.Questionnaire" >
-    update questionnaireModel
+    update questionnaire
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -85,7 +85,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zust.survey.entity.Questionnaire" >
-    update questionnaireModel
+    update questionnaire
     set name = #{name,jdbcType=VARCHAR},
       major_id = #{majorId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=BIGINT},

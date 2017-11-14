@@ -53,11 +53,14 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                 .with(Questionnaire::setCreateTime, new Date().getTime())
                 .with(Questionnaire::setUpdateTime, new Date().getTime()).build();
         if (questionnaireId != null){
+            System.out.println("!!!");
             //创建时制定了id，即属于修改操作，则设置id存入数据库
             questionnaire.setId(questionnaireId);
         }
-        questionnaireMapper.insertSelective(questionnaire);
 
+        questionnaireMapper.insertSelective(questionnaire);
+        //获取插入后，mybatis在entity里面写入的id
+        questionnaireId = questionnaire.getId();
         List<Question> questions = Lists.newArrayList();
         Question question = null;
         Answer answer = null;
@@ -71,12 +74,13 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
             question = GenericBuilder.of(Question::new).with(Question::setMajorId, majorId)
                     .with(Question::setQuestionContent, s)
                     .with(Question::setType, 1)
+                    .with(Question::setQuestionnaireId, questionnaireId)
                     .with(Question::setAnswers,
                             Lists.newArrayList(
                                     GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "完全达到").build(),
-                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "完全达到").build(),
-                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "完全达到").build(),
-                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "完全达到").build())
+                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "基本达到").build(),
+                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "未达到").build(),
+                                    GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, "差距很大").build())
                     ).build();
             questions.add(question);
         }
@@ -89,10 +93,12 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
             for (String answerString : customQuestion.getAnswerContent()){
                 answers.add(GenericBuilder.of(Answer::new).with(Answer::setAnswerContent, answerString).build());
             }
-            question = GenericBuilder.of(Question::new).with(Question::setMajorId, majorId)
+            question = GenericBuilder.of(Question::new)
+                    .with(Question::setMajorId, majorId)
                     .with(Question::setQuestionContent, customQuestion.getQuestionContent())
                     .with(Question::setType, 2)
                     .with(Question::setAnswers, answers)
+                    .with(Question::setQuestionnaireId, questionnaireId)
                     .build();
             questions.add(question);
         }

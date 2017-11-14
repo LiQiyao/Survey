@@ -34,12 +34,12 @@ public class LoginController {
     private IQuestionnaireService questionnaireService;
 
     @RequestMapping(value = "student", method = RequestMethod.POST )
-    public String studentLogin(HttpSession session, String username, String password, Model model){
+    public String doStudentLogin(HttpSession session, String username, String password, Model model){
         Student student = studentService.login(username, password);
 
         if (student != null){
             if (student.getAnswered() == 1){
-                //TODO 已经答题
+                //已经答题
                 return "thanks";
             }
             session.setAttribute(Const.CURRENT_USER, student);
@@ -54,7 +54,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "manager", method = RequestMethod.POST)
-    public String managerLogin(HttpSession session, String username, String password){
+    public String doManagerLogin(HttpSession session, String username, String password){
         Manager manager = managerService.login(username, password);
         if (manager != null){
             session.setAttribute(Const.CURRENT_USER, manager);
