@@ -112,4 +112,17 @@
     FROM display_form
     where questionnaire_id=#{questionnaireId} and grade=#{grade}
   </select>
+
+  <select id="selectByMajorId" resultType="edu.zust.survey.entity.DisplayForm">
+    select
+     <include refid="Base_Column_List"/>
+     from display_form, questionnaire
+    where questionnaire.major_id=#{majorId} and display_form.questionnaire_id=questionnaire.id
+  </select>
+
+  <select id="selectAll" resultType="edu.zust.survey.entity.DisplayForm">
+    select
+    <include refid="Base_Column_List"/>
+     from display_form
+  </select>
 </mapper>

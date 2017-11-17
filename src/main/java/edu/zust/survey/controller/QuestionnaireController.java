@@ -58,9 +58,20 @@ public class QuestionnaireController {
 
     @RequestMapping(value = "admin/questionnaires/{questionnaireId}", method = RequestMethod.DELETE)
     public String deleteQuestionnaire(HttpSession session, @PathVariable Integer questionnaireId){
-        //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
         if (questionnaireService.deleteQuestionnaireModel(questionnaireId)){
             return "";
+        }
+        return "";
+    }
+
+    @RequestMapping(value = "admin/questionnaires", method = RequestMethod.POST)
+    public String chooseQuestionnaire(HttpSession session, @PathVariable Integer questionnaireId){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            Integer majorId = manager.getMajorId();
+            if (questionnaireService.chooseQuestionnaireModel(majorId,questionnaireId)){
+                return "";
+            }
         }
         return "";
     }

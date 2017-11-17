@@ -4,7 +4,6 @@ import edu.zust.survey.common.Const;
 import edu.zust.survey.entity.Manager;
 import edu.zust.survey.entity.Student;
 import edu.zust.survey.service.IManagerService;
-import edu.zust.survey.service.IQuestionService;
 import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.service.IStudentService;
 import edu.zust.survey.vo.QuestionnaireModel;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**

@@ -73,4 +73,23 @@ public class DisplayForm {
     public void setPart3IsDisplay(Boolean part3IsDisplay) {
         this.part3IsDisplay = part3IsDisplay;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DisplayForm that = (DisplayForm) o;
+
+        if (questionnaireId != null ? !questionnaireId.equals(that.questionnaireId) : that.questionnaireId != null)
+            return false;
+        return grade != null ? grade.equals(that.grade) : that.grade == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = questionnaireId != null ? questionnaireId.hashCode() : 0;
+        result = 31 * result + (grade != null ? grade.hashCode() : 0);
+        return result;
+    }
 }

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import edu.zust.survey.common.GenericBuilder;
 import edu.zust.survey.dao.*;
 import edu.zust.survey.entity.*;
+import edu.zust.survey.service.IDisplayFormService;
 import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.vo.CustomQuestion;
 import edu.zust.survey.vo.DesignModel;
@@ -36,6 +37,9 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 
     @Autowired
     private MajorMapper majorMapper;
+
+    @Autowired
+    private IDisplayFormService displayFormService;
 
     @Override
     @Transactional
@@ -110,6 +114,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
             }
             answerMapper.batchInsert(q.getAnswers());
         }
+        displayFormService.synchronizeDisplayForm();
         return true;
     }
 
@@ -218,5 +223,16 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
     @Transactional
     public boolean modifyQuestionnaireModel(Integer majorId, Integer questionnaireId, String jsonString) {
         return deleteQuestionnaireModel(questionnaireId) && createQuestionnaire(majorId, jsonString, questionnaireId);
+    }
+
+    @Override
+    @Transactional
+    public boolean chooseQuestionnaireModel(Integer majorId, Integer questionnaireId) {
+        Major major = GenericBuilder.of(Major::new)
+                .with(Major::setId, majorId)
+                .with(Major::setDisplayQuestionnaireId, questionnaireId)
+                .build();
+        int resultCount = majorMapper.updateByPrimaryKeySelective(major);
+        return resultCount > 0;
     }
 }

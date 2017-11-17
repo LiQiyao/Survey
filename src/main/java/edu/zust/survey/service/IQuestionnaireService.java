@@ -20,4 +20,6 @@ public interface IQuestionnaireService {
     boolean deleteQuestionnaireModel(Integer questionnaireId);
 
     boolean modifyQuestionnaireModel(Integer majorId, Integer questionnaireId, String jsonString);
+
+    boolean chooseQuestionnaireModel(Integer majorId, Integer questionnaireId);
 }

@@ -10,4 +10,6 @@ public interface IManagerService {
     Manager login(String username, String password);
 
     boolean addManager(String username, String password, Integer majorId);
+
+    boolean addGrade(Integer majorId, Integer grade);
 }

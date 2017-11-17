@@ -92,4 +92,8 @@
       update_time = #{updateTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllId" resultType="int">
+    select id from questionnaire
+  </select>
 </mapper>

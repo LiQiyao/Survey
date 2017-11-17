@@ -14,4 +14,5 @@ public class Const {
     public static final String ANSWERED_COUNT = "answerCount";
     public static final String RESULT_MAP = "resultMap";
     public static final String SUGGESTION_TABLE = "suggestionTable";
+    public static final String DISPLAY_FORM_LIST = "displayFormList";
 }

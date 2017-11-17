@@ -2,6 +2,8 @@ package edu.zust.survey.dao;
 
 import edu.zust.survey.entity.Questionnaire;
 
+import java.util.List;
+
 public interface QuestionnaireMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface QuestionnaireMapper {
     int updateByPrimaryKeySelective(Questionnaire record);
 
     int updateByPrimaryKey(Questionnaire record);
+
+    List<Integer> selectAllId();
 }
