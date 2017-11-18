@@ -18,4 +18,6 @@ public interface SuggestionMapper {
     int updateByPrimaryKey(Suggestion record);
 
     List<Suggestion> selectAllByMajorId(int majorId);
+
+    String selectContentByStudentId(int studentId);
 }

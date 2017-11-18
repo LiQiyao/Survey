@@ -77,4 +77,20 @@ public class ManagerController {
         }
         return "statistics";
     }
+
+    @RequestMapping(value = "answerSheets/{studentId}", method = RequestMethod.GET)
+    public String getAnswerSheet(HttpSession session, Model model, @PathVariable Integer studentId){
+        model.addAttribute(Const.ANSWER_SHEET_VO, managerService.assembleAnswerSheetVo(studentId));
+        return "test";
+    }
+
+    @RequestMapping(value = "answerSheets/batchExport/{grade}", method = RequestMethod.GET)
+    public String batchExport(HttpSession session, @PathVariable Integer grade){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            Integer majorId = manager.getMajorId();
+        }
+        managerService.getAllAnswerSheet(4, 1, session.getServletContext().getRealPath("/"));
+        return "";
+    }
 }

@@ -23,7 +23,8 @@ public class GenericBuilder<T> {
     }
 
     public <V> GenericBuilder<T> with(BiConsumer<T,V> consumer, V value){
-        Consumer<T> c = (instance) -> consumer.accept(instance, value);//一种实现
+        //一种实现
+        Consumer<T> c = (instance) -> consumer.accept(instance, value);
         instantiatorModifiers.add(c);
         return this;
     }

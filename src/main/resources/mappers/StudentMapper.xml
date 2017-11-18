@@ -145,4 +145,9 @@
     from student
     where major_id=#{majorId} and answered=1 and grade=#{grade}
   </select>
+
+  <select id="selectAllIdByMajorIdAndGrade" resultType="int">
+    SELECT id FROM student
+    where major_id=#{majorId} and grade=#{grade}
+  </select>
 </mapper>

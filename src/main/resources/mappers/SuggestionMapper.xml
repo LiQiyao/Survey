@@ -76,4 +76,8 @@
      <include refid="Base_Column_List"/>
      from suggestion where major_id=#{majorId}
   </select>
+
+  <select id="selectContentByStudentId" resultType="string">
+    SELECT suggestion_content from suggestion where student_id=#{studentId}
+  </select>
 </mapper>

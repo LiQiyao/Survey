@@ -12,4 +12,5 @@ public interface IStudentService {
     Student login(String username, String password);
 
     boolean answerQuestions(Integer studentId, Map<String, String[]> map);
+
 }

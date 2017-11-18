@@ -34,6 +34,7 @@ public class StudentController {
         return "thanks";
     }
 
+
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.setAttribute(Const.CURRENT_USER, null);

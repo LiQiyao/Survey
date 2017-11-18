@@ -64,7 +64,7 @@ public class QuestionnaireController {
         return "";
     }
 
-    @RequestMapping(value = "admin/questionnaires", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/questionnaires/{questionnaireId}", method = RequestMethod.POST)
     public String chooseQuestionnaire(HttpSession session, @PathVariable Integer questionnaireId){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){

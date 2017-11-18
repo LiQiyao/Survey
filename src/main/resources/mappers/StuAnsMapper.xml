@@ -86,4 +86,9 @@
     select count(1) from stu_ans, student
     where answer_id=#{answerId} and student.grade=#{grade} and stu_ans.student_id=student.id
   </select>
+
+  <select id="selectByStudentIdAndType" resultType="edu.zust.survey.vo.QuestionAndAnswerEntry">
+    SELECT q.question_content, a.answer_content from question as q,answer as a, stu_ans as sa
+    where q.type=#{part} and  sa.student_id=#{studentId} and q.id=sa.question_id and a.id=sa.answer_id order by q.id asc
+  </select>
 </mapper>
