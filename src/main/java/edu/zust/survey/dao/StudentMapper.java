@@ -25,4 +25,6 @@ public interface StudentMapper {
     int selectAnsweredCountSumByMajorIdAndGrade(@Param("majorId") int majorId, @Param("grade") int grade);
 
     List<Integer> selectAllIdByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
+
+    List<Student> selectAllByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
 }

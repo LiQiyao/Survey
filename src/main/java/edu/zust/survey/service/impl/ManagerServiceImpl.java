@@ -1,11 +1,15 @@
 package edu.zust.survey.service.impl;
 
+import com.google.common.collect.Lists;
 import edu.zust.survey.common.GenericBuilder;
 import edu.zust.survey.dao.*;
 import edu.zust.survey.entity.*;
 import edu.zust.survey.service.IDisplayFormService;
 import edu.zust.survey.service.IManagerService;
+import edu.zust.survey.util.DeleteFileUtil;
+import edu.zust.survey.util.DownloadUtil;
 import edu.zust.survey.util.HTML2WordUtil;
+import edu.zust.survey.util.ZipUtil;
 import edu.zust.survey.vo.AnswerSheetVo;
 import edu.zust.survey.vo.QuestionAndAnswerEntry;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -115,13 +121,46 @@ public class ManagerServiceImpl implements IManagerService{
      * @param grade
      */
     @Override
-    public void getAllAnswerSheet(Integer majorId, Integer grade, String rootPath) {
-        List<Integer> studentIds = studentMapper.selectAllIdByMajorIdAndGrade(majorId, grade);
-        StringBuilder baseUrl = new StringBuilder("localhost:8080").append(rootPath).append("/admin/answerSheets/");
+    public void getAllAnswerSheet(Integer majorId, Integer grade, String rootPath, HttpServletResponse response) {
+        List<Student> students = studentMapper.selectAllByMajorIdAndGrade(majorId, grade);
+        String baseUrl = new StringBuilder("http://localhost:8080").append("/admin/answerSheets/").toString();
         logger.info("baseUrl:" + baseUrl);
         logger.info("rootPath:" + rootPath);
-        for (Integer studentId : studentIds){
-            HTML2WordUtil.generatorWordFile(rootPath + "/Documents/", studentId + ".doc", baseUrl.append(studentId).toString());
+        List<String> fileNames = Lists.newArrayList();
+        String fileName = null;
+        Major currentMajor = majorMapper.selectByPrimaryKey(majorId);
+        String majorName = currentMajor.getMajorName();
+        String subPath = new StringBuilder()
+                .append(majorName)
+                .append("/")
+                .append(grade)
+                .append("/")
+                .toString();
+        String documentPath = new StringBuilder()
+                                .append(rootPath)
+                                .append("documents/")
+                                .append(subPath)
+                                .toString();
+        String zipPath = new StringBuilder()
+                .append(rootPath)
+                .append("zips/")
+                .append(subPath)
+                .toString();
+        for (Student student : students){
+            fileName = new StringBuilder(4)
+                        .append(student.getUsername())
+                        .append(student.getName())
+                        .append(".doc").toString();
+            System.out.println(fileName.length() + "!!!");
+            fileNames.add(fileName);
+            HTML2WordUtil.generatorWordFile(documentPath, fileName, baseUrl + student.getId());
         }
+        String zipFileName = new StringBuilder().append(majorName).append(grade).append(".zip").toString();
+        ZipUtil.compressToZip(documentPath, zipPath, zipFileName,fileNames);
+        DownloadUtil.download(zipPath, zipFileName, response);
+        boolean deleteDocuments = DeleteFileUtil.deleteFile(new File(rootPath +"documents"));
+        boolean deleteZip = DeleteFileUtil.deleteFile(new File(rootPath +"zips"));
+        logger.info("删除文档：" + deleteDocuments);
+        logger.info("删除压缩包：" + deleteZip);
     }
 }

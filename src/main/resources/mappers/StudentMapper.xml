@@ -150,4 +150,9 @@
     SELECT id FROM student
     where major_id=#{majorId} and grade=#{grade}
   </select>
+
+  <select id="selectAllByMajorIdAndGrade" resultType="edu.zust.survey.entity.Student">
+    SELECT id, username, name FROM student
+    where major_id=#{majorId} and grade=#{grade}
+  </select>
 </mapper>

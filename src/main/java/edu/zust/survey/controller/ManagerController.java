@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -85,12 +86,12 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "answerSheets/batchExport/{grade}", method = RequestMethod.GET)
-    public String batchExport(HttpSession session, @PathVariable Integer grade){
+    public String batchExport(HttpSession session, HttpServletResponse response, @PathVariable Integer grade){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             Integer majorId = manager.getMajorId();
         }
-        managerService.getAllAnswerSheet(4, 1, session.getServletContext().getRealPath("/"));
+        managerService.getAllAnswerSheet(4, 1, session.getServletContext().getRealPath("/"), response);
         return "";
     }
 }
