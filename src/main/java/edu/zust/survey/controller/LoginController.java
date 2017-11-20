@@ -52,10 +52,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "manager", method = RequestMethod.POST)
-    public String doManagerLogin(HttpSession session, String username, String password){
+    public String doManagerLogin(HttpSession session, String username, String password, Model model){
         Manager manager = managerService.login(username, password);
         if (manager != null){
             session.setAttribute(Const.CURRENT_USER, manager);
+            Integer majorId = manager.getMajorId();
+            model.addAttribute(Const.QUESTIONNAIRE_CATALOG, questionnaireService.assembleQuestionnaireVos(majorId));
             addMajorTable(session);
             return "backend";
         }
