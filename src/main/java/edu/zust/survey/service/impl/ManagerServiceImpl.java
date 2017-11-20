@@ -17,7 +17,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
@@ -162,5 +164,14 @@ public class ManagerServiceImpl implements IManagerService{
         boolean deleteZip = DeleteFileUtil.deleteFile(new File(rootPath +"zips"));
         logger.info("删除文档：" + deleteDocuments);
         logger.info("删除压缩包：" + deleteZip);
+    }
+
+    @Override
+    public boolean importStudentInformation(MultipartFile multipartFile, HttpServletRequest request) {
+        System.out.println("开始");
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        String fileName = multipartFile.getOriginalFilename();
+        //multipartFile.getInputStream();
+        return false;
     }
 }
