@@ -62,6 +62,7 @@ public class ManagerController {
             Gson gson = new Gson();
             String json = gson.toJson(designModel);
             model.addAttribute(Const.DESIGN_MODEL, json);
+            model.addAttribute("questionnaireId",questionnaireId);
         }
         return "design";
     }

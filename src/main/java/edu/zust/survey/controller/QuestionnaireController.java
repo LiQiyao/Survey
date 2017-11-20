@@ -64,18 +64,18 @@ public class QuestionnaireController {
         return "loginFailed";
     }
 
-    @RequestMapping(value = "admin/questionnaires/{questionnaireId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "admin/questionnaires/{questionnaireId}/modify", method = RequestMethod.POST)
     public String modifyQuestion(HttpSession session, String jsonString, @PathVariable Integer questionnaireId){
         //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             questionnaireService.modifyQuestionnaireModel(manager.getMajorId(), questionnaireId, jsonString);
-            return "design";
+            return "designSucceed";
         }
         return "";
     }
 
-    @RequestMapping(value = "admin/questionnaires/{questionnaireId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "admin/questionnaires/{questionnaireId}/delete", method = RequestMethod.GET)
     public String deleteQuestionnaire(HttpSession session, @PathVariable Integer questionnaireId){
         if (questionnaireService.deleteQuestionnaireModel(questionnaireId)){
             return "";

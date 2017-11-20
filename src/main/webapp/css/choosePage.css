@@ -1,0 +1,9 @@
+.nav-menu{
+    padding: 10px;
+    border-bottom: 1px solid #bbbbbb;
+    background-color: #f2f2f2;
+    overflow: hidden;
+}
+.nav-menu-text{
+    font-size: 20px;
+}
