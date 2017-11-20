@@ -11,7 +11,9 @@ public interface IDisplayFormService {
 
     boolean modifyDisplayForm(Integer displayFormId, boolean[] partIsShow);
 
-    List<DisplayForm> getDisplayFormByMajorId(Integer majorId);
+    List<DisplayForm> getDisplayFormsByMajorId(Integer majorId);
 
     boolean synchronizeDisplayForm();
+
+    List<DisplayForm> getDisplayForms(Integer questionnaireId);
 }

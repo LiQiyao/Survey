@@ -49,7 +49,7 @@ public class DisplayFormServiceImpl implements IDisplayFormService {
     }
 
     @Override
-    public List<DisplayForm> getDisplayFormByMajorId(Integer majorId) {
+    public List<DisplayForm> getDisplayFormsByMajorId(Integer majorId) {
         return displayFormMapper.selectByMajorId(majorId);
     }
 
@@ -72,5 +72,10 @@ public class DisplayFormServiceImpl implements IDisplayFormService {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<DisplayForm> getDisplayForms(Integer questionnaireId) {
+        return displayFormMapper.selectByQuestionnaireId(questionnaireId);
     }
 }

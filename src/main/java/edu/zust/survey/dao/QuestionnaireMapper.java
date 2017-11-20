@@ -18,4 +18,6 @@ public interface QuestionnaireMapper {
     int updateByPrimaryKey(Questionnaire record);
 
     List<Integer> selectAllId();
+
+    List<Questionnaire> selectByMajorId(int majorId);
 }

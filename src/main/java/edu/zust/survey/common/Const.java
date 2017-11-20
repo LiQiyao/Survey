@@ -15,5 +15,7 @@ public class Const {
     public static final String RESULT_MAP = "resultMap";
     public static final String SUGGESTION_TABLE = "suggestionTable";
     public static final String DISPLAY_FORM_LIST = "displayFormList";
+    public static final String DISPLAY_FORMS = "displayForm";
     public static final String ANSWER_SHEET_VO = "answerSheetVo";
+    public static final String QUESTIONNAIRE_CATALOG = "questionnaireCatalog";
 }

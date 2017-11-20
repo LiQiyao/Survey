@@ -75,4 +75,14 @@ public class QuestionnaireController {
         }
         return "";
     }
+
+    @RequestMapping(value = "admin/questionnaires/list", method = RequestMethod.GET)
+    public String getQuestionnaireCatalog(HttpSession session, @PathVariable Integer questionnaireId, Model model){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            Integer majorId = manager.getMajorId();
+            model.addAttribute(Const.QUESTIONNAIRE_CATALOG, questionnaireService.assembleQuestionnaireVos(majorId));
+        }
+        return "";
+    }
 }

@@ -23,11 +23,21 @@ public class DisplayController {
     @Autowired
     private IDisplayFormService displayFormService;
 
-    @RequestMapping(value = "displayForms", method = RequestMethod.GET)
+    @RequestMapping(value = "displayForms/list", method = RequestMethod.GET)
     public String getDisplayFormList(HttpSession session, Model model){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
-            model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.getDisplayFormByMajorId(manager.getMajorId()));
+            model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.getDisplayFormsByMajorId(manager.getMajorId()));
+            return "";
+        }
+        return "";
+    }
+
+    @RequestMapping(value = "displayForms/questionnaireId/{questionnaireId}", method = RequestMethod.GET)
+    public String getDisplayFormList(HttpSession session, Model model, @PathVariable Integer questionnaireId){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            model.addAttribute(Const.DISPLAY_FORMS, displayFormService.getDisplayForms(questionnaireId));
             return "";
         }
         return "";

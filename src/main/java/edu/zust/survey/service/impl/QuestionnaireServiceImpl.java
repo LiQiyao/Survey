@@ -10,6 +10,7 @@ import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.vo.CustomQuestion;
 import edu.zust.survey.vo.DesignModel;
 import edu.zust.survey.vo.QuestionnaireModel;
+import edu.zust.survey.vo.SimpleQuestionnaireVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -234,5 +235,23 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                 .build();
         int resultCount = majorMapper.updateByPrimaryKeySelective(major);
         return resultCount > 0;
+    }
+
+    @Override
+    public List<SimpleQuestionnaireVo> assembleQuestionnaireVos(Integer majorId) {
+        Major major = majorMapper.selectByPrimaryKey(majorId);
+        List<SimpleQuestionnaireVo> simpleQuestionnaireVos = Lists.newArrayList();
+        List<Questionnaire> questionnaires = questionnaireMapper.selectByMajorId(majorId);
+        for (Questionnaire q : questionnaires){
+            simpleQuestionnaireVos.add(GenericBuilder.of(SimpleQuestionnaireVo::new)
+                    .with(SimpleQuestionnaireVo::setId, q.getId())
+                    .with(SimpleQuestionnaireVo::setName, q.getName())
+                    .with(SimpleQuestionnaireVo::setMajorId, q.getMajorId())
+                    .with(SimpleQuestionnaireVo::setUpdateTime, q.getUpdateTime())
+                    .with(SimpleQuestionnaireVo::setDisplay, q.getId()==major.getDisplayQuestionnaireId())
+                    .build()
+            );
+        }
+        return simpleQuestionnaireVos;
     }
 }

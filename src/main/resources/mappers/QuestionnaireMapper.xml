@@ -96,4 +96,10 @@
   <select id="selectAllId" resultType="int">
     select id from questionnaire
   </select>
+
+  <select id="selectByMajorId" resultType="edu.zust.survey.entity.Questionnaire">
+    select
+     <include refid="Base_Column_List"/>
+     from questionnaire where major_id=#{majorId};
+  </select>
 </mapper>

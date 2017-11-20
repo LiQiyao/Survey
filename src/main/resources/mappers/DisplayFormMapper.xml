@@ -125,4 +125,9 @@
     <include refid="Base_Column_List"/>
      from display_form
   </select>
+
+  <select id="selectByQuestionnaireId" resultType="edu.zust.survey.entity.DisplayForm">
+    select <include refid="Base_Column_List"/>
+    from display_form where questionnaire_id=#{questionnaireId} ;
+  </select>
 </mapper>

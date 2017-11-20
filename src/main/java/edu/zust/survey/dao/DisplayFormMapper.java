@@ -23,4 +23,6 @@ public interface DisplayFormMapper {
     List<DisplayForm> selectByMajorId(Integer majorId);
 
     List<DisplayForm> selectAll();
+
+    List<DisplayForm> selectByQuestionnaireId(Integer questionnaireId);
 }
