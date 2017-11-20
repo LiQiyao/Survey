@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -92,6 +94,12 @@ public class ManagerController {
             Integer majorId = manager.getMajorId();
         }
         managerService.getAllAnswerSheet(4, 1, session.getServletContext().getRealPath("/"), response);
+        return "";
+    }
+
+    @RequestMapping(value = "excel/import", method = RequestMethod.POST)
+    public String importExcel(HttpSession session, MultipartFile file, HttpServletRequest request){
+
         return "";
     }
 }

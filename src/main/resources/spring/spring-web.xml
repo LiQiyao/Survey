@@ -22,4 +22,5 @@
             <bean class="edu.zust.survey.interceptor.StudentInterceptor"/>
         </mvc:interceptor>-->
     </mvc:interceptors>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>
