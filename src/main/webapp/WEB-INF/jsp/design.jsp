@@ -9,13 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/plugins/layui/css/layui.css" />
-    <link rel="stylesheet" href="/css/designModel.css" />
+    <link rel="stylesheet" href="/css/design.css" />
     <title>designModel</title>
 </head>
 
 <body>
     <div class="main" id="main">
         <blockquote class="layui-elem-quote" style="border-left-color:#ff5722;">警告：设计完毕后请点击本页最下方的“保存设计”按钮，否则将丢失本次设计所做的修改。</blockquote>
+        <div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>问卷名称设置</legend>
+            </fieldset>
+            <div>
+                <span>问卷名称：</span><input class="short-input" placeholder="请输入问卷名称" v-model="name">
+            </div>
+        </div>
         <div>
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                 <legend>一、毕业要求达成度调查 - 设计</legend>
@@ -104,7 +112,7 @@
         if(checkData(app.$data)==false){
             layer.alert('有输入框内容为空！提交失败！', {icon: 2});
         } else{
-            var url = "${newDesignModel==1?'/admin/question/addQuestion':'/admin/question/modifyQuestion'}";
+            var url = "${newDesignModel==1?'/admin/questionnaires':'/admin/question/modifyQuestion'}";
             var k="jsonString";
             var v = JSON.stringify(app.$data);
             var myForm = document.createElement("form");
@@ -120,6 +128,9 @@
     }
 
     function checkData(data) {
+        if(data.name == '') {
+            return false;
+        }
         for(var i in data.part1){
             if(data.part1[i]==''){
                 return false;
