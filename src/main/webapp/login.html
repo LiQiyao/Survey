@@ -23,27 +23,13 @@
                 <div class="login-tab-div">
                     <ul class="login-tab-title">
                         <li class="login-this">用户登录</li>
-                        <li>管理员登录</li>
                     </ul>
                 </div>
                 <div class="login-tab-content">
                     <div class="login-tab-item login-show">
                         <form class="layui-form" action="/login/student" method="post">
                             <div class="layui-form-item">
-                                <input type="text" name="username" required="required" lay-verify="required" placeholder="用户学号" autocomplete="off" class="layui-input" />
-                            </div>
-                            <div class="layui-form-item">
-                                <input type="password" name="password" required="required" lay-verify="required" placeholder="统一身份密码" autocomplete="off" class="layui-input" />
-                            </div>
-                            <div class="layui-form-item login-form-item">
-                                <button class="layui-btn layui-btn-big layui-btn-normal" lay-submit="lay-submit">登录</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="login-tab-item">
-                        <form class="layui-form" action="/login/manager" method="post">
-                            <div class="layui-form-item">
-                                <input type="text" name="username" required="required" lay-verify="required" placeholder="管理员账号" autocomplete="off" class="layui-input" />
+                                <input type="text" name="username" required="required" lay-verify="required|id" placeholder="用户学号" autocomplete="off" class="layui-input" />
                             </div>
                             <div class="layui-form-item">
                                 <input type="password" name="password" required="required" lay-verify="required" placeholder="统一身份密码" autocomplete="off" class="layui-input" />
