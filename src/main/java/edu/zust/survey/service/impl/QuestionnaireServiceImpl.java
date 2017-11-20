@@ -127,6 +127,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
             Questionnaire questionnaire = questionnaireMapper.selectByPrimaryKey(questionnaireId);
 
             DisplayForm displayForm = displayFormMapper.selectByQuestionnaireIdAndGrade(questionnaireId, grade);
+//            System.out.println("!!" + questionnaireId + "!!" + grade);
             List<Question> part1 = Lists.newArrayList();
             List<Question> part2 = Lists.newArrayList();
             int questionId = 0;

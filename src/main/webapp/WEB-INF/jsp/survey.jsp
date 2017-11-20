@@ -28,7 +28,7 @@
 
         <div class="title">毕业要求达成度及毕业生跟踪调查问卷</div>
 
-        <form action="/student/stuAns/submitAnswer" method="post" class="layui-form">
+        <form action="/student/answer" method="post" class="layui-form">
             <div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>一、毕业要求达成度调查</legend>

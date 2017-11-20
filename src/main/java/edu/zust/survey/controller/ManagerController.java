@@ -75,7 +75,7 @@ public class ManagerController {
             model.addAttribute(Const.STUDENT_COUNT, statisticService.getCountSum(majorId, grade));
             model.addAttribute(Const.ANSWERED_COUNT, statisticService.getAnsweredCountSum(majorId, grade));
             model.addAttribute(Const.RESULT_MAP, statisticService.getStatisticResultMap(questionnaireId, grade));//通过answerId获取回答的人数
-            model.addAttribute(Const.SUGGESTION_TABLE, statisticService.getSuggestionList(majorId));
+            model.addAttribute(Const.SUGGESTION_TABLE, statisticService.getSuggestionVoList(majorId));
             QuestionnaireModel questionnaireModel = questionnaireService.getQuestionnaireModel(questionnaireId, grade);
             model.addAttribute(Const.QUESTIONNAIRE_MODEL, questionnaireModel);
         }

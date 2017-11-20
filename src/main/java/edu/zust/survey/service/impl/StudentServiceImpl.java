@@ -52,6 +52,7 @@ public class StudentServiceImpl implements IStudentService {
         }
         Student updatedStudent = new Student();
         updatedStudent.setAnswered(1);
+        updatedStudent.setId(1);
         studentMapper.updateByPrimaryKeySelective(updatedStudent);
         return true;
     }

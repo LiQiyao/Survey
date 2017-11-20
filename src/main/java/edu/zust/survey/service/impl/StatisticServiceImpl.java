@@ -2,12 +2,11 @@ package edu.zust.survey.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import edu.zust.survey.common.GenericBuilder;
 import edu.zust.survey.dao.*;
-import edu.zust.survey.entity.Answer;
-import edu.zust.survey.entity.DisplayForm;
-import edu.zust.survey.entity.Question;
-import edu.zust.survey.entity.Suggestion;
+import edu.zust.survey.entity.*;
 import edu.zust.survey.service.IStatisticService;
+import edu.zust.survey.vo.SuggestionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +39,19 @@ public class StatisticServiceImpl implements IStatisticService{
     private StuAnsMapper stuAnsMapper;
 
 
-    public List<Suggestion> getSuggestionList(int majorId){
-        return suggestionMapper.selectAllByMajorId(majorId);
+    public List<SuggestionVo> getSuggestionVoList(int majorId){
+        List<Suggestion> suggestions = suggestionMapper.selectAllByMajorId(majorId);
+        List<SuggestionVo> suggestionVos = Lists.newArrayList();
+        Student student = null;
+        for (Suggestion s : suggestions){
+            student = studentMapper.selectByPrimaryKey(s.getStudentId());
+            suggestionVos.add(GenericBuilder.of(SuggestionVo::new)
+                            .with(SuggestionVo::setStudentName, student.getName())
+                            .with(SuggestionVo::setStudentUsername, student.getUsername())
+                            .build()
+            );
+        }
+        return suggestionVos;
     }
 
     public Integer getCountSum(Integer majorId, Integer grade){

@@ -83,12 +83,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="suggestion" items="${suggestionTable}">
-                        <c:if test="${suggestion.suggestionContent!=null && suggestion.suggestionContent!=''}" >
+                    <c:forEach var="suggestionVo" items="${suggestionTable}">
+                        <c:if test="${suggestionVo.suggestionContent!=null && suggestionVo.suggestionContent!=''}" >
                             <tr>
-                                <td>${suggestion.student.name}</td>
-                                <td>${suggestion.student.username}</td>
-                                <td>${suggestion.suggestionContent}</td>
+                                <td>${suggestionVo.studentName}</td>
+                                <td>${suggestionVo.studentUsername}</td>
+                                <td>${suggestionVo.suggestionContent}</td>
                             </tr>
                         </c:if>
                     </c:forEach>

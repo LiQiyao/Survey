@@ -73,8 +73,8 @@
 
   <select id="selectAllByMajorId"  resultMap="BaseResultMap">
     select
-     <include refid="Base_Column_List"/>
-     from suggestion where major_id=#{majorId}
+     suggestion.id, student_id, suggestion_content
+     from suggestion, student where major_id=#{majorId} and student.id=suggestion.student_id
   </select>
 
   <select id="selectContentByStudentId" resultType="string">

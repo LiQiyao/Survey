@@ -82,7 +82,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectCountByAnswerIdAndGrade">
+  <select id="selectCountByAnswerIdAndGrade" resultType="int">
     select count(1) from stu_ans, student
     where answer_id=#{answerId} and student.grade=#{grade} and stu_ans.student_id=student.id
   </select>
