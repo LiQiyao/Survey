@@ -239,16 +239,13 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 
     @Override
     public List<SimpleQuestionnaireVo> assembleQuestionnaireVos(Integer majorId) {
-        Major major = majorMapper.selectByPrimaryKey(majorId);
         List<SimpleQuestionnaireVo> simpleQuestionnaireVos = Lists.newArrayList();
         List<Questionnaire> questionnaires = questionnaireMapper.selectByMajorId(majorId);
         for (Questionnaire q : questionnaires){
             simpleQuestionnaireVos.add(GenericBuilder.of(SimpleQuestionnaireVo::new)
                     .with(SimpleQuestionnaireVo::setId, q.getId())
                     .with(SimpleQuestionnaireVo::setName, q.getName())
-                    .with(SimpleQuestionnaireVo::setMajorId, q.getMajorId())
                     .with(SimpleQuestionnaireVo::setUpdateTime, q.getUpdateTime())
-                    .with(SimpleQuestionnaireVo::setDisplay, q.getId()==major.getDisplayQuestionnaireId())
                     .build()
             );
         }

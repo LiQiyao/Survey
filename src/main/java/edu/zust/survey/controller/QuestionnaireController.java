@@ -34,7 +34,6 @@ public class QuestionnaireController {
         return "survey";
     }*/
 
-
     @RequestMapping(value = "admin/questionnaires", method = RequestMethod.GET)
     public String createQuestionnaireModel(HttpSession session){
         //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
@@ -88,7 +87,7 @@ public class QuestionnaireController {
     }
 
     @RequestMapping(value = "admin/questionnaires/list", method = RequestMethod.GET)
-    public String getQuestionnaireCatalog(HttpSession session, @PathVariable Integer questionnaireId, Model model){
+    public String getQuestionnaireCatalog(HttpSession session, Model model){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             Integer majorId = manager.getMajorId();
