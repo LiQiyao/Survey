@@ -56,8 +56,6 @@ public class LoginController {
         Manager manager = managerService.login(username, password);
         if (manager != null){
             session.setAttribute(Const.CURRENT_USER, manager);
-            Integer majorId = manager.getMajorId();
-            model.addAttribute(Const.QUESTIONNAIRE_CATALOG, questionnaireService.assembleQuestionnaireVos(majorId));
             addMajorTable(session);
             return "backend";
         }

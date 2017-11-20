@@ -83,6 +83,6 @@ public class QuestionnaireController {
             Integer majorId = manager.getMajorId();
             model.addAttribute(Const.QUESTIONNAIRE_CATALOG, questionnaireService.assembleQuestionnaireVos(majorId));
         }
-        return "";
+        return "chooseDesignModel";
     }
 }

@@ -13,7 +13,7 @@ public class SimpleQuestionnaireVo {
 
     private Long updateTime;
 
-    private boolean isDisplay;
+    private boolean display;
 
     @Override
     public String toString() {
@@ -22,7 +22,7 @@ public class SimpleQuestionnaireVo {
                 ", name='" + name + '\'' +
                 ", majorId=" + majorId +
                 ", updateTime=" + updateTime +
-                ", isDisplay=" + isDisplay +
+                ", isDisplay=" + display +
                 '}';
     }
 
@@ -62,10 +62,10 @@ public class SimpleQuestionnaireVo {
     }
 
     public boolean isDisplay() {
-        return isDisplay;
+        return display;
     }
 
     public void setDisplay(boolean display) {
-        isDisplay = display;
+        this.display = display;
     }
 }
