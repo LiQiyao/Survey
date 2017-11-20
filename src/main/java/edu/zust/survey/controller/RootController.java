@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RootController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loginPage(){
-        return "login";
+    public String studentLogin(){
+        return "studentLogin";
+    }
+
+    @RequestMapping(value = "mng", method = RequestMethod.GET)
+    public String managerLogin(){
+        return "adminLogin";
     }
 }
