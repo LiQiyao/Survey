@@ -168,4 +168,10 @@
     </set>
     where major_id=#{majorId}, grade = #{grade,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByMajorIdAndGrade" resultType="int">
+    select
+     <include refid="Base_Column_List"/>
+     from display_form where major_id=#{majorId} and grade=#{grade}
+  </select>
 </mapper>

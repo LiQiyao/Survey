@@ -27,4 +27,6 @@ public interface DisplayFormMapper {
     List<DisplayForm> selectByQuestionnaireId(Integer questionnaireId);
 
     int updateByMajorIdAndGrade(DisplayForm displayForm);
+
+    Integer selectByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
 }

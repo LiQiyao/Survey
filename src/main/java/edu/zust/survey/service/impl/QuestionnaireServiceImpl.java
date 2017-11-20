@@ -160,8 +160,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
     public QuestionnaireModel getQuestionnaireModel(Student student){
         Integer majorId = student.getMajorId();
         Integer grade = student.getGrade();
-        Major currentMajor = majorMapper.selectByPrimaryKey(majorId);
-        Integer questionnaireId = currentMajor.getDisplayQuestionnaireId();
+        Integer questionnaireId = displayFormMapper.selectByMajorIdAndGrade(majorId, grade);
         return assembleQuestionnaireModel(questionnaireId, grade);
     }
 
