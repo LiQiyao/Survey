@@ -1,11 +1,14 @@
 package edu.zust.survey.entity;
 
 public class DisplayForm {
+
     private Integer id;
 
-    private Integer questionnaireId;
-
     private Integer grade;
+
+    private Integer majorId;
+
+    private Integer questionnaireId;
 
     private Boolean part1IsDisplay;
 
@@ -13,13 +16,33 @@ public class DisplayForm {
 
     private Boolean part3IsDisplay;
 
-    public DisplayForm(Integer id, Integer questionnaireId, Integer grade, Boolean part1IsDisplay, Boolean part2IsDisplay, Boolean part3IsDisplay) {
+    private Boolean enable;
+
+    public DisplayForm(Integer id, Integer questionnaireId, Integer grade, Integer majorId, Boolean part1IsDisplay, Boolean part2IsDisplay, Boolean part3IsDisplay, Boolean enable) {
         this.id = id;
         this.questionnaireId = questionnaireId;
         this.grade = grade;
+        this.majorId = majorId;
         this.part1IsDisplay = part1IsDisplay;
         this.part2IsDisplay = part2IsDisplay;
         this.part3IsDisplay = part3IsDisplay;
+        this.enable = enable;
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     public DisplayForm() {

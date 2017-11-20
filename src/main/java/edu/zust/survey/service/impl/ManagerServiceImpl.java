@@ -85,7 +85,7 @@ public class ManagerServiceImpl implements IManagerService{
                     .with(DisplayForm::setQuestionnaireId, questionnaireId)
                     .build());
         }*/
-        displayFormService.synchronizeDisplayForm();
+        //displayFormService.synchronizeDisplayForm();
         return true;
     }
 

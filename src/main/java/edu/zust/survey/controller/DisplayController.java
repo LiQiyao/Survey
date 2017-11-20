@@ -27,13 +27,13 @@ public class DisplayController {
     public String getDisplayFormList(HttpSession session, Model model){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
-            model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.getDisplayFormsByMajorId(manager.getMajorId()));
+            model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.assembleGradeChoiceVos(manager.getMajorId()));
             return "";
         }
         return "";
     }
 
-    @RequestMapping(value = "displayForms/questionnaireId/{questionnaireId}", method = RequestMethod.GET)
+/*    @RequestMapping(value = "displayForms/questionnaireId/{questionnaireId}", method = RequestMethod.GET)
     public String getDisplayFormList(HttpSession session, Model model, @PathVariable Integer questionnaireId){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
@@ -41,13 +41,15 @@ public class DisplayController {
             return "";
         }
         return "";
-    }
+    }*/
 
-    @RequestMapping(value = "displayForms/{displayFormId}", method = RequestMethod.PATCH)
-    public String modifyDisplayForm(HttpServletRequest request, @PathVariable Integer displayFormId){
-        //复选框提取数据
-        boolean[] partIsDisplay = {};
-        displayFormService.modifyDisplayForm(displayFormId, partIsDisplay);
+    @RequestMapping(value = "displayForms", method = RequestMethod.PATCH)
+    public String modifyDisplayForm(HttpSession session, HttpServletRequest request){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            int majorId = manager.getMajorId();
+            displayFormService.modifyDisplayForm(majorId, request);
+        }
         return "";
     }
 }

@@ -6,13 +6,15 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="questionnaire_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="grade" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="major_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="part1_is_display" jdbcType="BIT" javaType="java.lang.Boolean" />
       <arg column="part2_is_display" jdbcType="BIT" javaType="java.lang.Boolean" />
       <arg column="part3_is_display" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="enable" jdbcType="BIT" javaType="java.lang.Boolean" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, questionnaire_id, grade, part1_is_display, part2_is_display, part3_is_display
+    id, questionnaire_id, grade, major_id, part1_is_display, part2_is_display, part3_is_display, enable
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,10 +27,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="edu.zust.survey.entity.DisplayForm" >
-    insert into display_form (id, questionnaire_id, grade, 
+    insert into display_form (id, questionnaire_id, major_id,grade,
       part1_is_display, part2_is_display, part3_is_display
       )
-    values (#{id,jdbcType=INTEGER}, #{questionnaireId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{questionnaireId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER},#{grade,jdbcType=INTEGER},
       #{part1IsDisplay,jdbcType=BIT}, #{part2IsDisplay,jdbcType=BIT}, #{part3IsDisplay,jdbcType=BIT}
       )
   </insert>
@@ -40,6 +42,9 @@
       </if>
       <if test="questionnaireId != null" >
         questionnaire_id,
+      </if>
+      <if test="majorId != null" >
+        major_id,
       </if>
       <if test="grade != null" >
         grade,
@@ -61,6 +66,9 @@
       <if test="questionnaireId != null" >
         #{questionnaireId,jdbcType=INTEGER},
       </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=INTEGER},
+      </if>
       <if test="grade != null" >
         #{grade,jdbcType=INTEGER},
       </if>
@@ -81,6 +89,9 @@
       <if test="questionnaireId != null" >
         questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
       </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=INTEGER},
+      </if>
       <if test="grade != null" >
         grade = #{grade,jdbcType=INTEGER},
       </if>
@@ -93,16 +104,21 @@
       <if test="part3IsDisplay != null" >
         part3_is_display = #{part3IsDisplay,jdbcType=BIT},
       </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.zust.survey.entity.DisplayForm" >
     update display_form
     set questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
+      major_id= #{majorId,jdbcType=INTEGER},
       grade = #{grade,jdbcType=INTEGER},
       part1_is_display = #{part1IsDisplay,jdbcType=BIT},
       part2_is_display = #{part2IsDisplay,jdbcType=BIT},
-      part3_is_display = #{part3IsDisplay,jdbcType=BIT}
+      part3_is_display = #{part3IsDisplay,jdbcType=BIT},
+      enable = #{enable,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -130,4 +146,26 @@
     select <include refid="Base_Column_List"/>
     from display_form where questionnaire_id=#{questionnaireId} ;
   </select>
+
+  <update id="updateByMajorIdAndGrade" parameterType="edu.zust.survey.entity.DisplayForm">
+    update display_form
+    <set >
+      <if test="questionnaireId != null" >
+        questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
+      </if>
+      <if test="part1IsDisplay != null" >
+        part1_is_display = #{part1IsDisplay,jdbcType=BIT},
+      </if>
+      <if test="part2IsDisplay != null" >
+        part2_is_display = #{part2IsDisplay,jdbcType=BIT},
+      </if>
+      <if test="part3IsDisplay != null" >
+        part3_is_display = #{part3IsDisplay,jdbcType=BIT},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
+    </set>
+    where major_id=#{majorId}, grade = #{grade,jdbcType=INTEGER}
+  </update>
 </mapper>

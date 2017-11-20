@@ -1,7 +1,9 @@
 package edu.zust.survey.service;
 
 import edu.zust.survey.entity.DisplayForm;
+import edu.zust.survey.vo.GradeChoiceVo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -9,11 +11,11 @@ import java.util.List;
  */
 public interface IDisplayFormService {
 
-    boolean modifyDisplayForm(Integer displayFormId, boolean[] partIsShow);
+    boolean modifyDisplayForm(Integer majorId, HttpServletRequest request);
 
     List<DisplayForm> getDisplayFormsByMajorId(Integer majorId);
 
     boolean synchronizeDisplayForm();
 
-    List<DisplayForm> getDisplayForms(Integer questionnaireId);
+    List<GradeChoiceVo> assembleGradeChoiceVos(Integer majorId);
 }

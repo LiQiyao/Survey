@@ -1,6 +1,7 @@
 package edu.zust.survey.dao;
 
 import edu.zust.survey.entity.Questionnaire;
+import edu.zust.survey.vo.IdAndNameVo;
 
 import java.util.List;
 

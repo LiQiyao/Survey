@@ -115,7 +115,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
             }
             answerMapper.batchInsert(q.getAnswers());
         }
-        displayFormService.synchronizeDisplayForm();
+        //displayFormService.synchronizeDisplayForm();
         return true;
     }
 
