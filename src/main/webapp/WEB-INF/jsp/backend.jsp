@@ -23,13 +23,13 @@
     </div>
     <div class="left-nav">
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
-            <li class="layui-nav-item layui-this"><a href="admin/questionnaires/list" target="frame">设计调查表</a></li>
+            <li class="layui-nav-item layui-this"><a href="/admin/questionnaires/list" target="frame">设计调查表</a></li>
             <li class="layui-nav-item"><a href="/admin/getStatic" target="frame">统计数据</a></li>
             <li class="layui-nav-item"><a href="/admin/getStatic" target="frame">年级管理</a></li>
         </ul>
     </div>
     <div class="main">
-        <iframe name="frame" src="/admin/getDesignModel" frameborder="0"></iframe>
+        <iframe name="frame" src="/admin/questionnaires/list" frameborder="0"></iframe>
     </div>
 </body>
 

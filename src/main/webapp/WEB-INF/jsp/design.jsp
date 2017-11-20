@@ -112,7 +112,8 @@
         if(checkData(app.$data)==false){
             layer.alert('有输入框内容为空！提交失败！', {icon: 2});
         } else{
-            var url = "${newDesignModel==1?'/admin/questionnaires':'/admin/question/modifyQuestion'}";
+            var _modify ="/admin/questionnaires/${newDesignModel==1?'ERROR':questionnaireId}/modify";
+            var url = ${newDesignModel==1?'"/admin/questionnaires"':'_modify'};
             var k="jsonString";
             var v = JSON.stringify(app.$data);
             var myForm = document.createElement("form");

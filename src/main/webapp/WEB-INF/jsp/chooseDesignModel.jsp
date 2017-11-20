@@ -16,7 +16,7 @@
 <body>
 <div class="nav-menu">
     <span class="nav-menu-text">选择问卷</span>
-    <button class="layui-btn" style="float:right;">新建问卷</button>
+    <button class="layui-btn" style="float:right;" onclick="window.location.href='/admin/questionnaires'">新建问卷</button>
 </div>
 <div style="margin:0 15px;">
     <table class="layui-table" lay-skin="line">
@@ -34,8 +34,8 @@
                 <td>${item.name}</td>
                 <td>${item.updateTime}</td>
                 <td>
-                    <button class="layui-btn layui-btn-mini">修改</button>
-                    <button class="layui-btn layui-btn-mini layui-btn-danger">删除</button>
+                    <button class="layui-btn layui-btn-mini" onclick="window.location.href='/admin/designModels/${item.id}'">修改</button>
+                    <button class="layui-btn layui-btn-mini layui-btn-danger" onclick="window.location.href='/admin/questionnaires/${item.id}/delete'">删除</button>
                 </td>
             </tr>
         </c:forEach>

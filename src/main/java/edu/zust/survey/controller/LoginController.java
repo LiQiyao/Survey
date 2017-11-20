@@ -62,6 +62,16 @@ public class LoginController {
         return "loginFailed";
     }
 
+    @RequestMapping(value = "manager", method = RequestMethod.GET)
+    public String managerHome(HttpSession session){
+        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            addMajorTable(session);
+            return "backend";
+        }
+        return "loginFailed";
+    }
+
     private void addMajorTable(HttpSession session){
         if(session.getServletContext().getAttribute(Const.MAJOR_TABLE)==null){
             String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
