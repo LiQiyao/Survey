@@ -3,6 +3,7 @@ package edu.zust.survey.controller;
 import com.google.gson.Gson;
 import edu.zust.survey.common.Const;
 import edu.zust.survey.entity.Manager;
+import edu.zust.survey.service.IDisplayFormService;
 import edu.zust.survey.service.IManagerService;
 import edu.zust.survey.service.IQuestionnaireService;
 import edu.zust.survey.service.IStatisticService;
@@ -37,6 +38,9 @@ public class ManagerController {
     @Autowired
     private IQuestionnaireService questionnaireService;
 
+    @Autowired
+    private IDisplayFormService displayFormService;
+
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.setAttribute(Const.CURRENT_USER, null);
@@ -67,8 +71,18 @@ public class ManagerController {
         return "design";
     }
 
+    @RequestMapping(value = "statistics/list", method = RequestMethod.GET)
+    public String getStatisticList(HttpSession session, Model model){
+        Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
+        if (manager != null){
+            model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.assembleGradeChoiceVos(manager.getMajorId()));
+            return "";
+        }
+        return "";
+    }
+
     @RequestMapping(value = "statistics/questionnaireId/{questionnaireId}/grade/{grade}", method = RequestMethod.GET)
-    public String getStatic(HttpSession session, Model model, @PathVariable Integer questionnaireId, @PathVariable Integer grade){
+    public String getStatistic(HttpSession session, Model model, @PathVariable Integer questionnaireId, @PathVariable Integer grade){
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (manager != null && questionnaireId != null && grade != null){
             Integer majorId = manager.getMajorId();
