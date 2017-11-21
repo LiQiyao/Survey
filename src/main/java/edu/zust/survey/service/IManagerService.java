@@ -22,5 +22,5 @@ public interface IManagerService {
 
     void getAllAnswerSheet(Integer majorId, Integer grade, String rootPath, HttpServletResponse response);
 
-    boolean importStudentInformation(MultipartFile multipartFile, HttpServletRequest request);
+    boolean importStudentInformation(MultipartFile multipartFile);
 }

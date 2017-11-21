@@ -113,8 +113,8 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "excel/import", method = RequestMethod.POST)
-    public String importExcel(HttpSession session, MultipartFile file, HttpServletRequest request){
-
+    public String importExcel(HttpSession session, MultipartFile file){
+        managerService.importStudentInformation(file);
         return "";
     }
 }

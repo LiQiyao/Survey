@@ -168,7 +168,7 @@ public class ManagerServiceImpl implements IManagerService{
     }
 
     @Override
-    public boolean importStudentInformation(MultipartFile multipartFile, HttpServletRequest request) {
+    public boolean importStudentInformation(MultipartFile multipartFile) {
         String fileName = multipartFile.getOriginalFilename();
         logger.info("文件名:" + fileName);
         Map<Integer, Set<Integer>> gradeMap = new HashMap<>();
