@@ -150,9 +150,7 @@
   <update id="updateByMajorIdAndGrade" parameterType="edu.zust.survey.entity.DisplayForm">
     update display_form
     <set >
-      <if test="questionnaireId != null" >
         questionnaire_id = #{questionnaireId,jdbcType=INTEGER},
-      </if>
       <if test="part1IsDisplay != null" >
         part1_is_display = #{part1IsDisplay,jdbcType=BIT},
       </if>
@@ -163,10 +161,10 @@
         part3_is_display = #{part3IsDisplay,jdbcType=BIT},
       </if>
       <if test="enable != null" >
-        enable = #{enable,jdbcType=BIT},
+        enable = #{enable,jdbcType=BIT}
       </if>
     </set>
-    where major_id=#{majorId}, grade = #{grade,jdbcType=INTEGER}
+    where major_id=#{majorId} and  grade = #{grade,jdbcType=INTEGER}
   </update>
 
   <select id="selectByMajorIdAndGrade" resultType="int">

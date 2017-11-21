@@ -8,6 +8,7 @@ import edu.zust.survey.entity.Student;
 import edu.zust.survey.entity.Suggestion;
 import edu.zust.survey.service.IStudentService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,8 @@ import java.util.Map;
  */
 @Service
 public class StudentServiceImpl implements IStudentService {
+
+    private static final Logger logger = Logger.getLogger(StudentServiceImpl.class);
 
     @Autowired
     private StudentMapper studentMapper;
@@ -52,7 +55,8 @@ public class StudentServiceImpl implements IStudentService {
         }
         Student updatedStudent = new Student();
         updatedStudent.setAnswered(1);
-        updatedStudent.setId(1);
+        updatedStudent.setId(studentId);
+        logger.info("student: " + studentId + updatedStudent);
         studentMapper.updateByPrimaryKeySelective(updatedStudent);
         return true;
     }

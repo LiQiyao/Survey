@@ -46,6 +46,7 @@ public class StatisticServiceImpl implements IStatisticService{
         for (Suggestion s : suggestions){
             student = studentMapper.selectByPrimaryKey(s.getStudentId());
             suggestionVos.add(GenericBuilder.of(SuggestionVo::new)
+                            .with(SuggestionVo::setSuggestionContent, s.getSuggestionContent())
                             .with(SuggestionVo::setStudentName, student.getName())
                             .with(SuggestionVo::setStudentUsername, student.getUsername())
                             .build()

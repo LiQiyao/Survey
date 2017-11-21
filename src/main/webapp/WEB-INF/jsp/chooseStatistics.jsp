@@ -30,7 +30,13 @@
 
         <c:forEach var="item" items="${displayFormList}">
             <tr>
-                <td>${item.currentQuestionnaireIdChoice}</td>
+                <td>
+                    <c:forEach items="${item.questionnaires}" var="questionnaire">
+                        <c:if test="${questionnaire.id eq item.currentQuestionnaireIdChoice}">
+                            ${questionnaire.name}
+                        </c:if>
+                    </c:forEach>
+                </td>
                 <td>${item.grade}</td>
                 <td>
                     <button class="layui-btn layui-btn-mini" onclick="window.location.href='/admin/statistics/questionnaireId/${item.currentQuestionnaireIdChoice}/grade/${item.grade}'">查看统计结果</button>

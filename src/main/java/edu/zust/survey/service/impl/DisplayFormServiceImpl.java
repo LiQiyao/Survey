@@ -13,6 +13,7 @@ import edu.zust.survey.entity.Questionnaire;
 import edu.zust.survey.service.IDisplayFormService;
 import edu.zust.survey.vo.GradeChoiceVo;
 import edu.zust.survey.vo.IdAndNameVo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,8 @@ import java.util.Set;
  */
 @Service
 public class DisplayFormServiceImpl implements IDisplayFormService {
+
+    private static final Logger logger = Logger.getLogger(IDisplayFormService.class);
 
     @Autowired
     private MajorMapper majorMapper;
@@ -45,16 +48,30 @@ public class DisplayFormServiceImpl implements IDisplayFormService {
     @Transactional
     public boolean modifyDisplayForm(Integer majorId, HttpServletRequest request) {
         Integer grade = Integer.valueOf(request.getParameter("grade"));
-        Integer questionnaireId = Integer.valueOf(request.getParameter("questionnaireId"));
-        Integer part1 = Integer.valueOf(request.getParameter("part1"));
-        Integer part2 = Integer.valueOf(request.getParameter("part2"));
+        String questionnaireIdString = request.getParameter("questionnaireId");
+        Integer questionnaireId = 0;
+        if ("null".equals(questionnaireIdString)){
+            questionnaireId = null;
+        } else {
+            questionnaireId = Integer.valueOf(questionnaireIdString);
+        }
+        boolean part1 = true;
+        if (request.getParameter("part1") == null){
+            part1 = false;
+        };
+        boolean part2 = true;
+        if (request.getParameter("part2") == null){
+            part2 = false;
+        };
+        logger.info("questionnaireId: " + questionnaireId + " part1: " + part1 + " part2: " + part2 + " majorId: " + majorId);
         displayFormMapper.updateByMajorIdAndGrade(
                 GenericBuilder.of(DisplayForm::new)
-                .with(DisplayForm::setGrade, grade)
-                .with(DisplayForm::setQuestionnaireId, questionnaireId)
-                .with(DisplayForm::setPart1IsDisplay, part1 == 1)
-                .with(DisplayForm::setPart2IsDisplay, part2 == 2)
-                .build()
+                        .with(DisplayForm::setMajorId, majorId)
+                        .with(DisplayForm::setGrade, grade)
+                        .with(DisplayForm::setQuestionnaireId, questionnaireId)
+                        .with(DisplayForm::setPart1IsDisplay, part1)
+                        .with(DisplayForm::setPart2IsDisplay, part2)
+                        .build()
         );
         return true;
     }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,7 +29,7 @@ public class DisplayController {
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.assembleGradeChoiceVos(manager.getMajorId()));
-            return "";
+            return "gradeManage";
         }
         return "";
     }
@@ -43,13 +44,15 @@ public class DisplayController {
         return "";
     }*/
 
-    @RequestMapping(value = "displayForms", method = RequestMethod.PATCH)
-    public String modifyDisplayForm(HttpSession session, HttpServletRequest request){
+    @RequestMapping(value = "displayForms", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean modifyDisplayForm(HttpSession session, HttpServletRequest request){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             int majorId = manager.getMajorId();
             displayFormService.modifyDisplayForm(majorId, request);
+            return true;
         }
-        return "";
+        return false;
     }
 }

@@ -93,6 +93,7 @@ public class ManagerServiceImpl implements IManagerService{
     }
 
     @Override
+    @Transactional
     public AnswerSheetVo assembleAnswerSheetVo(Integer studentId, Integer questionnaireId) {
         Student student = studentMapper.selectByPrimaryKey(studentId);
         logger.info("student: " + student);
@@ -170,16 +171,17 @@ public class ManagerServiceImpl implements IManagerService{
     }
 
     @Override
+    @Transactional
     public boolean importStudentInformation(MultipartFile multipartFile) {
         String fileName = multipartFile.getOriginalFilename();
         logger.info("文件名:" + fileName);
         Map<Integer, Set<Integer>> gradeMap = new HashMap<>();
         for (int i = 1; i <= 6; i++){
-            gradeMap.put(1, displayFormMapper.selectGradesByMajorId(1));
+            logger.info("专业年级映射表：" + i + "  " + displayFormMapper.selectGradesByMajorId(1));
+            gradeMap.put(i, displayFormMapper.selectGradesByMajorId(i));
         }
         try {
             List<Student> students = ExcelUtil.importExcel2List(multipartFile.getInputStream(), fileName);
-            System.out.println(students);
             if (students == null){
                 return false;
             }
@@ -202,6 +204,7 @@ public class ManagerServiceImpl implements IManagerService{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
         return true;
     }
