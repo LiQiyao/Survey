@@ -76,7 +76,7 @@ public class ManagerController {
         Manager manager = (Manager)session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             model.addAttribute(Const.DISPLAY_FORM_LIST, displayFormService.assembleGradeChoiceVos(manager.getMajorId()));
-            return "";
+            return "chooseStatistics";
         }
         return "";
     }
