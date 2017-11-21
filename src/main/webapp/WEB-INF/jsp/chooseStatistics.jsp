@@ -34,7 +34,7 @@
                 <td>${item.grade}</td>
                 <td>
                     <button class="layui-btn layui-btn-mini" onclick="window.location.href='/admin/statistics/questionnaireId/${item.currentQuestionnaireIdChoice}/grade/${item.grade}'">查看统计结果</button>
-                    <button class="layui-btn layui-btn-mini" onclick="window.location.href='/admin/answerSheets/batchExport/${item.grade}'">批量下载word文档</button>
+                    <button class="layui-btn layui-btn-mini" onclick="window.location.href='/admin/answerSheets/batchExport/questionnaireId/${item.currentQuestionnaireIdChoice}/grade/${item.grade}'">批量下载word文档</button>
                 </td>
             </tr>
         </c:forEach>

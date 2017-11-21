@@ -36,7 +36,7 @@ public class HTML2WordUtil {
                     logger.info("HTMLUrl: " + HTMLUrl);
                     // 生成临时文件名称
                     String content = getHTMLCode(HTMLUrl);
-                    byte b[] = content.getBytes("GBK");
+                    byte b[] = content.getBytes("UTF-8");
                     bais = new ByteArrayInputStream(b);
                     poifs = new POIFSFileSystem();
                     DirectoryEntry directory = poifs.getRoot();
@@ -85,7 +85,7 @@ public class HTML2WordUtil {
             raw = uc.getInputStream();
             buffer = new BufferedInputStream(raw);
             //
-            r = new InputStreamReader(buffer);
+            r = new InputStreamReader(buffer, "UTF-8");
             int c;
             while ((c = r.read()) != -1) {
                 str += (char)c;

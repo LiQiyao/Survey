@@ -93,10 +93,9 @@ public class ManagerServiceImpl implements IManagerService{
     }
 
     @Override
-    public AnswerSheetVo assembleAnswerSheetVo(Integer studentId) {
+    public AnswerSheetVo assembleAnswerSheetVo(Integer studentId, Integer questionnaireId) {
         Student student = studentMapper.selectByPrimaryKey(studentId);
         logger.info("student: " + student);
-        int questionnaireId = majorMapper.selectByPrimaryKey(student.getMajorId()).getDisplayQuestionnaireId();
         DisplayForm displayForm = displayFormMapper.selectByQuestionnaireIdAndGrade(questionnaireId, student.getGrade());
 
         boolean part1IsDisplay = displayForm.getPart1IsDisplay();
@@ -124,7 +123,7 @@ public class ManagerServiceImpl implements IManagerService{
      * @param grade
      */
     @Override
-    public void getAllAnswerSheet(Integer majorId, Integer grade, String rootPath, HttpServletResponse response) {
+    public void getAllAnswerSheet(Integer majorId, Integer grade, Integer questionnaireId,String rootPath, HttpServletResponse response) {
         List<Student> students = studentMapper.selectAllByMajorIdAndGrade(majorId, grade);
         String baseUrl = new StringBuilder("http://localhost:8080").append("/admin/answerSheets/").toString();
         logger.info("baseUrl:" + baseUrl);
@@ -150,13 +149,16 @@ public class ManagerServiceImpl implements IManagerService{
                 .append(subPath)
                 .toString();
         for (Student student : students){
-            fileName = new StringBuilder(4)
+            if (student.getAnswered() == 0){
+                continue;
+            }
+            fileName = new StringBuilder()
                         .append(student.getUsername())
                         .append(student.getName())
                         .append(".doc").toString();
             System.out.println(fileName.length() + "!!!");
             fileNames.add(fileName);
-            HTML2WordUtil.generatorWordFile(documentPath, fileName, baseUrl + student.getId());
+            HTML2WordUtil.generatorWordFile(documentPath, fileName, baseUrl + questionnaireId + "/" + student.getId());
         }
         String zipFileName = new StringBuilder().append(majorName).append(grade).append(".zip").toString();
         ZipUtil.compressToZip(documentPath, zipPath, zipFileName,fileNames);
@@ -177,6 +179,7 @@ public class ManagerServiceImpl implements IManagerService{
         }
         try {
             List<Student> students = ExcelUtil.importExcel2List(multipartFile.getInputStream(), fileName);
+            System.out.println(students);
             if (students == null){
                 return false;
             }

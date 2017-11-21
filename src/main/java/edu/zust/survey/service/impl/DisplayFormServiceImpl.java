@@ -101,7 +101,7 @@ public class DisplayFormServiceImpl implements IDisplayFormService {
         }
         for (DisplayForm displayForm : displayForms){
             gradeChoiceVos.add(GenericBuilder.of(GradeChoiceVo::new)
-                    .with(GradeChoiceVo::setGrade, displayForm.getId())
+                    .with(GradeChoiceVo::setGrade, displayForm.getGrade())
                     .with(GradeChoiceVo::setCurrentQuestionnaireIdChoice, displayForm.getQuestionnaireId())
                     .with(GradeChoiceVo::setPart1IsDisplay, displayForm.getPart1IsDisplay())
                     .with(GradeChoiceVo::setPart2IsDisplay, displayForm.getPart2IsDisplay())
@@ -111,7 +111,7 @@ public class DisplayFormServiceImpl implements IDisplayFormService {
                     .build()
             );
         }
-        return null;
+        return gradeChoiceVos;
     }
 
 

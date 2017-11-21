@@ -22,5 +22,5 @@ public interface StuAnsMapper {
 
     int selectCountByAnswerIdAndGrade(@Param("answerId") Integer answerId,@Param("grade") Integer grade);
 
-    List<QuestionAndAnswerEntry> selectByStudentIdAndType(@Param("studentId") Integer studentId,@Param("type") Integer part);
+    List<QuestionAndAnswerEntry> selectByStudentIdAndType(@Param("studentId") Integer studentId,@Param("type") Integer type);
 }

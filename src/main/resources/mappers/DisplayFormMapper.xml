@@ -132,8 +132,8 @@
   <select id="selectByMajorId" resultType="edu.zust.survey.entity.DisplayForm">
     select
      <include refid="Base_Column_List"/>
-     from display_form, questionnaire
-    where questionnaire.major_id=#{majorId} and display_form.questionnaire_id=questionnaire.id
+     from display_form
+    where major_id=#{majorId}
   </select>
 
   <select id="selectAll" resultType="edu.zust.survey.entity.DisplayForm">

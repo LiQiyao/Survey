@@ -18,9 +18,9 @@ public interface IManagerService {
 
     boolean addGrade(Integer majorId, Integer grade);
 
-    AnswerSheetVo assembleAnswerSheetVo(Integer studentId);
+    AnswerSheetVo assembleAnswerSheetVo(Integer studentId, Integer questionnaireId);
 
-    void getAllAnswerSheet(Integer majorId, Integer grade, String rootPath, HttpServletResponse response);
+    void getAllAnswerSheet(Integer majorId, Integer grade, Integer questionnaireId, String rootPath, HttpServletResponse response);
 
     boolean importStudentInformation(MultipartFile multipartFile);
 }

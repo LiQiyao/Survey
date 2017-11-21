@@ -96,25 +96,31 @@ public class ManagerController {
         return "statistics";
     }
 
-    @RequestMapping(value = "answerSheets/{studentId}", method = RequestMethod.GET)
-    public String getAnswerSheet(HttpSession session, Model model, @PathVariable Integer studentId){
-        model.addAttribute(Const.ANSWER_SHEET_VO, managerService.assembleAnswerSheetVo(studentId));
-        return "test";
+    @RequestMapping(value = "answerSheets/{questionnaireId}/{studentId}", method = RequestMethod.GET)
+    public String getAnswerSheet(HttpSession session, Model model, @PathVariable Integer questionnaireId, @PathVariable Integer studentId){
+        model.addAttribute(Const.ANSWER_SHEET_VO, managerService.assembleAnswerSheetVo(studentId, questionnaireId));
+        return "answerResult";
     }
 
-    @RequestMapping(value = "answerSheets/batchExport/{grade}", method = RequestMethod.GET)
-    public String batchExport(HttpSession session, HttpServletResponse response, @PathVariable Integer grade){
+    @RequestMapping(value = "answerSheets/batchExport/questionnaireId/{questionnaireId}/grade/{grade}", method = RequestMethod.GET)
+    public String batchExport(HttpSession session, HttpServletResponse response,@PathVariable Integer questionnaireId ,@PathVariable Integer grade){
         Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
         if (manager != null){
             Integer majorId = manager.getMajorId();
+            managerService.getAllAnswerSheet(majorId, grade, questionnaireId,session.getServletContext().getRealPath("/"), response);
         }
-        managerService.getAllAnswerSheet(4, 1, session.getServletContext().getRealPath("/"), response);
+
         return "";
+    }
+
+    @RequestMapping(value = "excel/import", method = RequestMethod.GET)
+    public String importExcel(){
+        return "importInformation";
     }
 
     @RequestMapping(value = "excel/import", method = RequestMethod.POST)
     public String importExcel(HttpSession session, MultipartFile file){
         managerService.importStudentInformation(file);
-        return "";
+        return "designSucceed";
     }
 }

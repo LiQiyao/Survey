@@ -11,7 +11,7 @@
 <script>
     layui.use(['layer'], function () {
         var layer = layui.layer;
-        layer.alert('设计成功！', {icon: 1});
+        layer.alert('操作成功！', {icon: 1});
     });
     setTimeout("window.location.href='/admin/questionnaires/list'",1000);
 </script>

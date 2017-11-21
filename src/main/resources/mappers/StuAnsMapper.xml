@@ -88,7 +88,7 @@
   </select>
 
   <select id="selectByStudentIdAndType" resultType="edu.zust.survey.vo.QuestionAndAnswerEntry">
-    SELECT q.question_content, a.answer_content from question as q,answer as a, stu_ans as sa
-    where q.type=#{part} and  sa.student_id=#{studentId} and q.id=sa.question_id and a.id=sa.answer_id order by q.id asc
+    SELECT q.question_content, a.answer_content as answer from question as q,answer as a, stu_ans as sa
+    where q.type=#{type} and  sa.student_id=#{studentId} and q.id=sa.question_id and a.id=sa.answer_id order by q.id asc
   </select>
 </mapper>

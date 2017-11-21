@@ -95,4 +95,18 @@ public class Student {
     public void setAnswered(Integer answered) {
         this.answered = answered;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", majorId=" + majorId +
+                ", grade=" + grade +
+                ", klasse='" + klasse + '\'' +
+                ", answered=" + answered +
+                '}';
+    }
 }
