@@ -174,4 +174,8 @@
      questionnaire_id
      from display_form where major_id=#{majorId} and grade=#{grade}
   </select>
+
+  <select id="selectGradesByMajorId" resultType="int">
+    select grade from display_form where major_id=#{majorId};
+  </select>
 </mapper>

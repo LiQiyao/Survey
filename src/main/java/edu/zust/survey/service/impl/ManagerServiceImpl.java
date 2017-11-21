@@ -6,10 +6,7 @@ import edu.zust.survey.dao.*;
 import edu.zust.survey.entity.*;
 import edu.zust.survey.service.IDisplayFormService;
 import edu.zust.survey.service.IManagerService;
-import edu.zust.survey.util.DeleteFileUtil;
-import edu.zust.survey.util.DownloadUtil;
-import edu.zust.survey.util.HTML2WordUtil;
-import edu.zust.survey.util.ZipUtil;
+import edu.zust.survey.util.*;
 import edu.zust.survey.vo.AnswerSheetVo;
 import edu.zust.survey.vo.QuestionAndAnswerEntry;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Lee on 2017/10/19.
@@ -95,7 +96,7 @@ public class ManagerServiceImpl implements IManagerService{
     public AnswerSheetVo assembleAnswerSheetVo(Integer studentId) {
         Student student = studentMapper.selectByPrimaryKey(studentId);
         logger.info("student: " + student);
-/*        int questionnaireId = majorMapper.selectByPrimaryKey(student.getMajorId()).getDisplayQuestionnaireId();
+        int questionnaireId = majorMapper.selectByPrimaryKey(student.getMajorId()).getDisplayQuestionnaireId();
         DisplayForm displayForm = displayFormMapper.selectByQuestionnaireIdAndGrade(questionnaireId, student.getGrade());
 
         boolean part1IsDisplay = displayForm.getPart1IsDisplay();
@@ -108,12 +109,12 @@ public class ManagerServiceImpl implements IManagerService{
         if (part2IsDisplay){
             part2 = stuAnsMapper.selectByStudentIdAndType(studentId, 2);
         }
-        String suggestionContent = suggestionMapper.selectContentByStudentId(studentId);*/
+        String suggestionContent = suggestionMapper.selectContentByStudentId(studentId);
         return GenericBuilder.of(AnswerSheetVo::new)
                 .with(AnswerSheetVo::setStudent, student)
-/*                .with(AnswerSheetVo::setPart1, part1)
+                .with(AnswerSheetVo::setPart1, part1)
                 .with(AnswerSheetVo::setPart2, part2)
-                .with(AnswerSheetVo::setSuggestionContent, suggestionContent)*/
+                .with(AnswerSheetVo::setSuggestionContent, suggestionContent)
                 .build();
     }
 
@@ -168,10 +169,37 @@ public class ManagerServiceImpl implements IManagerService{
 
     @Override
     public boolean importStudentInformation(MultipartFile multipartFile, HttpServletRequest request) {
-        System.out.println("开始");
-        String path = request.getSession().getServletContext().getRealPath("upload");
         String fileName = multipartFile.getOriginalFilename();
-        //multipartFile.getInputStream();
-        return false;
+        logger.info("文件名:" + fileName);
+        Map<Integer, Set<Integer>> gradeMap = new HashMap<>();
+        for (int i = 1; i <= 6; i++){
+            gradeMap.put(1, displayFormMapper.selectGradesByMajorId(1));
+        }
+        try {
+            List<Student> students = ExcelUtil.importExcel2List(multipartFile.getInputStream(), fileName);
+            if (students == null){
+                return false;
+            }
+            studentMapper.batchInsert(students);
+            int grade;
+            int majorId;
+
+            for (Student student : students){
+                grade = student.getGrade();
+                majorId = student.getMajorId();
+                if (!gradeMap.get(majorId).contains(grade)){
+                    displayFormMapper.insertSelective(GenericBuilder.of(DisplayForm::new)
+                                    .with(DisplayForm::setGrade, grade)
+                                    .with(DisplayForm::setMajorId, majorId)
+                                    .build()
+
+                    );
+                    gradeMap.get(majorId).add(grade);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

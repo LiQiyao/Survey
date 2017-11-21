@@ -27,4 +27,6 @@ public interface StudentMapper {
     List<Integer> selectAllIdByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
 
     List<Student> selectAllByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
+
+    int batchInsert(List<Student> students);
 }

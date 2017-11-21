@@ -1,12 +1,13 @@
 package edu.zust.survey.util;
 
 import edu.zust.survey.entity.Student;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,49 +22,57 @@ public class ExcelUtil {
 
     private ExcelUtil(){}
 
-    private static Map<String, Integer> majorMap = new HashMap<>();
+    private static Map<String, Integer> majorMap = new HashMap<String, Integer>();
 
-    public static List<Student> importExcel2DB(InputStream inputStream) throws IOException {
+    public static List<Student> importExcel2List(InputStream inputStream, String fileName) throws IOException {
         init();
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
+        Workbook workbook;
+        if (fileName.endsWith(".xlsx")){
+            workbook = new XSSFWorkbook(inputStream);
+        } else if (fileName.endsWith(".xls")){
+            workbook = new HSSFWorkbook(inputStream);
+        } else {
+            return null;
+        }
         Student student = null;
         List<Student> list = new ArrayList<Student>();
         // 循环工作表Sheet
-        HSSFCell username = null;
-        HSSFCell password = null;
-        HSSFCell name = null;
-        HSSFCell major = null;
-        HSSFCell klasse = null;
+        Cell username = null;
+        Cell password = null;
+        Cell name = null;
+        Cell major = null;
+        Cell klasse = null;
         String klasseString = null;
         String gradeString = null;
-        for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
-            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
-            if (hssfSheet == null) {
+        for (int numSheet = 0; numSheet < workbook.getNumberOfSheets(); numSheet++) {
+            Sheet sheet = workbook.getSheetAt(numSheet);
+            if (sheet == null) {
                 continue;
             }
             // 循环行Row
-            for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
-                HSSFRow hssfRow = hssfSheet.getRow(rowNum);
-                if (hssfRow != null) {
+            for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+                Row row = sheet.getRow(rowNum);
+                if (row != null) {
                     student = new Student();
-                    username = hssfRow.getCell(0);
-                    password = hssfRow.getCell(1);
-                    name = hssfRow.getCell(2);
-                    major = hssfRow.getCell(4);
-                    klasse = hssfRow.getCell(5);
+                    username = row.getCell(0);
+                    password = row.getCell(1);
+                    name = row.getCell(2);
+                    major = row.getCell(4);
+                    klasse = row.getCell(5);
                     student.setUsername(username.getStringCellValue());
                     student.setPassword(password.getStringCellValue());
                     student.setName(name.getStringCellValue());
                     student.setKlasse(klasse.getStringCellValue());
                     student.setMajorId(majorMap.get(major.getStringCellValue()));
                     klasseString = klasse.getStringCellValue();
-                    gradeString = klasseString.substring(major.getStringCellValue().length(), major.getStringCellValue().length());
-
-                    student.setGrade(Integer.valueOf(gradeString));
+                    //System.out.println(klasseString.length() + " " +major.getStringCellValue().length());
+                    gradeString = klasseString.substring(klasseString.length() - 3, klasseString.length() - 1);
+                    student.setGrade(2000 + Integer.valueOf(gradeString));
                     list.add(student);
                 }
             }
         }
+        inputStream.close();
         return list;
     }
 
@@ -77,16 +86,4 @@ public class ExcelUtil {
 
     }
 
-    private static String getValue(HSSFCell hssfCell) {
-        if (hssfCell.getCellType() == hssfCell.CELL_TYPE_BOOLEAN) {
-            // 返回布尔类型的值
-            return String.valueOf(hssfCell.getBooleanCellValue());
-        } else if (hssfCell.getCellType() == hssfCell.CELL_TYPE_NUMERIC) {
-            // 返回数值类型的值
-            return String.valueOf(hssfCell.getNumericCellValue());
-        } else {
-            // 返回字符串类型的值
-            return String.valueOf(hssfCell.getStringCellValue());
-        }
-    }
 }

@@ -4,6 +4,7 @@ import edu.zust.survey.entity.DisplayForm;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DisplayFormMapper {
     int deleteByPrimaryKey(Integer id);
@@ -29,4 +30,6 @@ public interface DisplayFormMapper {
     int updateByMajorIdAndGrade(DisplayForm displayForm);
 
     Integer selectByMajorIdAndGrade(@Param("majorId") int majorId,@Param("grade") int grade);
+
+    Set<Integer> selectGradesByMajorId(Integer majorId);
 }
