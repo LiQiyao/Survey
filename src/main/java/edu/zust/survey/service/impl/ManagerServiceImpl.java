@@ -81,14 +81,6 @@ public class ManagerServiceImpl implements IManagerService{
                                     .with(GradeTable::setGrade, grade)
                                     .with(GradeTable::setMajorId, majorId)
                                     .build());
-        /*List<Integer> allQuestionnaireIds = questionnaireMapper.selectAllId();
-        for (Integer questionnaireId : allQuestionnaireIds){
-            displayFormMapper.insertSelective(GenericBuilder.of(DisplayForm::new)
-                    .with(DisplayForm::setGrade, grade)
-                    .with(DisplayForm::setQuestionnaireId, questionnaireId)
-                    .build());
-        }*/
-        //displayFormService.synchronizeDisplayForm();
         return true;
     }
 

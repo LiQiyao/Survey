@@ -34,16 +34,6 @@ public class DisplayController {
         return "";
     }
 
-/*    @RequestMapping(value = "displayForms/questionnaireId/{questionnaireId}", method = RequestMethod.GET)
-    public String getDisplayFormList(HttpSession session, Model model, @PathVariable Integer questionnaireId){
-        Manager manager = (Manager) session.getAttribute(Const.CURRENT_USER);
-        if (manager != null){
-            model.addAttribute(Const.DISPLAY_FORMS, displayFormService.getDisplayForms(questionnaireId));
-            return "";
-        }
-        return "";
-    }*/
-
     @RequestMapping(value = "displayForms", method = RequestMethod.POST)
     @ResponseBody
     public boolean modifyDisplayForm(HttpSession session, HttpServletRequest request){

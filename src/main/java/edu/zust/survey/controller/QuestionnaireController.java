@@ -27,16 +27,6 @@ public class QuestionnaireController {
     @Autowired
     private IQuestionnaireService questionnaireService;
 
-/*    @RequestMapping(value = "student/questionnaire", method = RequestMethod.GET)
-    public String getQuestionnaireModel(HttpSession session, Model model){
-        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
-        QuestionnaireModel questionnaire = questionnaireService.assembleQuestionnaireModel(student);
-        model.addAttribute(Const.QUESTIONNAIRE_MODEL, questionnaire);
-        String[] majorTable = {"","软件工程","计算机科学与技术","数字媒体技术","电子信息工程","物联网工程","通信工程"};
-        model.addAttribute(Const.MAJOR_TABLE,majorTable);
-        return "survey";
-    }*/
-
     @RequestMapping(value = "admin/questionnaires", method = RequestMethod.GET)
     public String createQuestionnaireModel(HttpSession session, Model model){
         //jsonString = "{'part1':['问题1','问题2'],'part2':[{'questionContent':'你为什么要自定义问题啊','answerContent':['知道','不知道']},{'questionContent':'你为什么要自定义问题2','answerContent':['知道','不知道']}]}";
